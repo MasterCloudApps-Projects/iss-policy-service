@@ -1,10 +1,11 @@
 spring:
+  jackson.serialization.indent_output: true
   application:
     name: iss-policy-service
   datasource:
-    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:policy}
-    username: ${POSTGRES_USER:policy}
-    password: ${POSTGRES_PASSWORD:policy123}
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:postgres}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres123}
     hikari:
       connection-timeout: 2000
       initialization-fail-timeout: 0
