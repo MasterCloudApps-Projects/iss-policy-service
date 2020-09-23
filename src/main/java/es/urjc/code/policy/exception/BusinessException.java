@@ -2,10 +2,12 @@ package es.urjc.code.policy.exception;
 
 public class BusinessException extends RuntimeException {
 
+	private static final long serialVersionUID = 4831389859161854256L;
+
 	protected static final Object[] EMPTY_ARGS = new Object[0];
 
-    private String code = null;
-    private Object[] args = EMPTY_ARGS;
+    private String code;
+    private Object[] args;
 
     
     public String getCode() {
