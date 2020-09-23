@@ -1,0 +1,74 @@
+databaseChangeLog:
+- changeSet:
+    id: 08_create_offer_answers_table
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: offer_answers
+    changes:
+    - createTable:
+        schemaName: policy
+        tableName: offer_answers
+        columns:
+        - column:
+            name: offer_id
+            type: UUID
+            constraints:
+                primaryKeyName: offer_answers_pkey
+                primaryKey: true
+                nullable: false     
+        - column:
+            name: question_code
+            type: VARCHAR(255)
+            constraints:
+                primaryKeyName: offer_answers_pkey
+                primaryKey: true
+                nullable: false 
+        - column:
+            name: answer
+            type: VARCHAR(255)
+            constraints:
+                nullable: false
+                   
+- changeSet:
+    id: 09_add_primarykey_constraint_in_offer_answers
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: offer_answers                   
+    changes:  
+    -  addPrimaryKey:  
+         columnNames: offer_id, question_code  
+         constraintName: offer_answers_pkey  
+         tableName: offer_answers  
+         schemaName: policy
+                                      
+                    
+- changeSet:
+    id: 10_add_offer_id_foreignkey_constraint_in_offer_answers
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: offer_answers
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: offer_id
+        baseTableName: offer_answers
+        baseTableSchemaName: policy
+        constraintName: fk_offer_answers_offer_id
+        deferrable: true
+        initiallyDeferred: true
+        onDelete: CASCADE
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: offer
+        referencedTableSchemaName: policy      

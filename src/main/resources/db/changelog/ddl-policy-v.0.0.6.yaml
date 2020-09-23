@@ -1,0 +1,74 @@
+databaseChangeLog:
+- changeSet:
+    id: 11_create_offer_cover_table
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: offer_cover
+    changes:
+    - createTable:
+        schemaName: policy
+        tableName: offer_cover
+        columns:
+        - column:
+            name: offer_id
+            type: UUID
+            constraints:
+                primaryKeyName: offer_cover_pkey
+                primaryKey: true
+                nullable: false     
+        - column:
+            name: cover_code
+            type: VARCHAR(255)
+            constraints:
+                primaryKeyName: offer_cover_pkey
+                primaryKey: true
+                nullable: false
+        - column:
+                name: price
+                type: NUMERIC(19, 2)
+                constraints:
+                    nullable: false
+                   
+- changeSet:
+    id: 12_add_primarykey_constraint_in_offer_cover
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: offer_cover                   
+    changes:  
+    -  addPrimaryKey:  
+         columnNames: offer_id, cover_code  
+         constraintName: offer_cover_pkey  
+         tableName: offer_cover  
+         schemaName: policy
+                                      
+                    
+- changeSet:
+    id: 13_add_offer_id_foreignkey_constraint_in_offer_cover
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: offer_cover
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: offer_id
+        baseTableName: offer_cover
+        baseTableSchemaName: policy
+        constraintName: fk_offer_cover_offer_id
+        deferrable: true
+        initiallyDeferred: true
+        onDelete: CASCADE
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: offer
+        referencedTableSchemaName: policy      

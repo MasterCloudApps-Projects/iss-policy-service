@@ -1,0 +1,60 @@
+databaseChangeLog:
+- changeSet:
+    id: 05_create_cover_table
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: cover
+    changes:
+    - createTable:
+        schemaName: policy
+        tableName: cover
+        columns:
+        - column:
+            name: id
+            type: UUID
+            constraints:
+                primaryKeyName: cover_pkey
+                primaryKey: true
+                nullable: false        
+        - column:
+            name: policy_version_id
+            type: UUID
+            constraints:
+                nullable: false
+        - column:
+                name: code
+                type: VARCHAR(20)
+                constraints:
+                    nullable: false
+        - column:
+                name: price
+                type: NUMERIC(19, 2)
+                constraints:
+                    nullable: false
+
+- changeSet:
+    id: 06_add_policy_version_foreignkey_constraint_in_cover
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: cover
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: policy_version_id
+        baseTableName: cover
+        baseTableSchemaName: policy
+        constraintName: fk_cover_policy_version
+        deferrable: true
+        initiallyDeferred: true
+        onDelete: CASCADE
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: policy_version
+        referencedTableSchemaName: policy                   

@@ -1,0 +1,107 @@
+databaseChangeLog:
+- changeSet:
+    id: 03_create_policy_version_table
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: policy_version
+    changes:
+    - createTable:
+        schemaName: policy
+        tableName: policy_version
+        columns:
+        - column:
+            name: id
+            type: UUID
+            constraints:
+                primaryKeyName: policy_version_pkey
+                primaryKey: true
+                nullable: false
+        - column:
+            name: policy_id
+            type: UUID
+            constraints:
+                nullable: false
+        - column:
+                name: account_number
+                type: VARCHAR(20)
+                constraints:
+                    nullable: false
+        - column:
+                name: cover_from
+                type: TIMESTAMP
+                constraints:
+                    nullable: true
+        - column:
+                name: cover_to
+                type: TIMESTAMP
+                constraints:
+                    nullable: true
+        - column:
+                name: first_name
+                type: VARCHAR(50)
+                constraints:
+                    nullable: false
+        - column:
+                name: last_name
+                type: VARCHAR(50)
+                constraints:
+                    nullable: false
+        - column:
+                name: pesel
+                type: VARCHAR(10)
+                constraints:
+                    nullable: false
+        - column:
+                name: product_code
+                type: VARCHAR(12)
+                constraints:
+                    nullable: false
+        - column:
+                name: total_premium_amount
+                type: NUMERIC(19, 2)
+                constraints:
+                    nullable: false
+        - column:
+                name: version_number
+                type: BIGINT
+                constraints:
+                    nullable: false                                
+        - column:
+                name: version_from
+                type: TIMESTAMP
+                constraints:
+                    nullable: true
+        - column:
+                name: version_to
+                type: TIMESTAMP
+                constraints:
+                    nullable: true                               
+                               
+                               
+                                                          
+- changeSet:
+    id: 04_add_policy_foreignkey_constraint_in_policy_version
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: policy_version
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: policy_id
+        baseTableName: policy_version
+        baseTableSchemaName: policy
+        constraintName: fk_policy_version_policy
+        deferrable: true
+        initiallyDeferred: true
+        onDelete: CASCADE
+        onUpdate: RESTRICT
+        referencedColumnNames: id
+        referencedTableName: policy
+        referencedTableSchemaName: policy

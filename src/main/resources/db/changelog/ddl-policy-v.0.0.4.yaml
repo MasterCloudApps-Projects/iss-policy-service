@@ -1,0 +1,57 @@
+databaseChangeLog:
+- changeSet:
+    id: 07_create_offer_table
+    author: fpoirier
+    preConditions:
+      - onFail: MARK_RAN
+        not:
+          tableExists:
+            schemaName: policy
+            tableName: offer
+    changes:
+    - createTable:
+        schemaName: policy
+        tableName: offer
+        columns:
+        - column:
+            name: id
+            type: UUID
+            constraints:
+                primaryKeyName: offer_pkey
+                primaryKey: true
+                nullable: false
+        - column:
+                name: creation_date
+                type: TIMESTAMP
+                constraints:
+                    nullable: true        
+        - column:
+                name: number
+                type: VARCHAR(20)
+                constraints:
+                    nullable: false
+        - column:
+                name: status
+                type: VARCHAR(20)
+                constraints:
+                    nullable: false
+        - column:
+                name: product_code
+                type: VARCHAR(20)
+                constraints:
+                    nullable: false
+        - column:
+                name: policy_from
+                type: TIMESTAMP
+                constraints:
+                    nullable: true
+        - column:
+                name: policy_to
+                type: TIMESTAMP
+                constraints:
+                    nullable: true
+        - column:
+                name: total_price
+                type: NUMERIC(19, 2)
+                constraints:
+                    nullable: false
