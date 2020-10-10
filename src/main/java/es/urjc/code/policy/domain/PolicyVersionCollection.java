@@ -103,7 +103,7 @@ public class PolicyVersionCollection {
             Map<String, BigDecimal> coversPrices) {
 
         if (hasVersion(versionNumber)) {
-            throw new BusinessException("POLVEREXISTS", policy.getNumber(), versionNumber);
+            throw new BusinessException("POLICY_VERSION_EXISTS");
         }
 
         PolicyVersion ver = new PolicyVersion.Builder()

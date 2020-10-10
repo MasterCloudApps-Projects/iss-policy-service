@@ -43,7 +43,7 @@ public class OfferRepositoryAdapter implements LoadOfferPort, UpdateOfferPort {
 		final OfferEntity offerEntity = offerJpaRepository.getByNumber(offerNumber);
 		final Offer offer = offerEntityToOfferConverter.convert(offerEntity);
 		if (offer.isExpired(LocalDate.now())) {
-			throw new BusinessException("Offer has expired"); 
+			throw new BusinessException("OFFER_HAS_EXPIRED"); 
 		}
 		return offer;
 	}
