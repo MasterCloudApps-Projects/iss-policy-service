@@ -10,6 +10,27 @@ spring:
       connection-timeout: 2000
       initialization-fail-timeout: 0
     jpa.database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        policy-registered:
+          destination: policy-registered-out
+          producer:
+            partitionKeyExpression: payload.policyTerminatedEvent.policy.number
+            partitionCount: 2          
+          contentType: application/json    
+        policy-terminated:
+          destination: policy-terminated-out
+          producer:
+            partitionKeyExpression: payload.policyRegisteredEvent.policy.number
+            partitionCount: 2          
+          contentType: application/json    
+
+pricing-service:
+  url: http://localhost:8081 
 
 management:
   endpoints:

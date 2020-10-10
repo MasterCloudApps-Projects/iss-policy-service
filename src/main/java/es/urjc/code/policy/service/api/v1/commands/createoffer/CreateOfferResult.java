@@ -3,14 +3,20 @@ package es.urjc.code.policy.service.api.v1.commands.createoffer;
 import java.math.BigDecimal;
 import java.util.Map;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class CreateOfferResult {
 
+	@NotEmpty
 	private String offerNumber;
+	@NotNull
     private BigDecimal totalPrice;
-    private Map<String, BigDecimal> coversPrices;
+	@NotNull
+	private Map<String, BigDecimal> coversPrices;
     
     public String getOfferNumber() {
         return offerNumber;

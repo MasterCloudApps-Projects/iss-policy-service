@@ -21,7 +21,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "offer")
+@Table(name = "offer", schema = "policy")
 public class OfferEntity {
 
     @Id
@@ -41,7 +41,7 @@ public class OfferEntity {
     private LocalDate policyTo;
 
     @ElementCollection
-    @CollectionTable(name = "offer_answers", joinColumns = @JoinColumn(name = "offer_id"))
+    @CollectionTable(name = "offer_answers", joinColumns = @JoinColumn(name = "offer_id"), schema = "policy")
     @MapKeyColumn(name = "question_code")
     @Column(name = "answer")
     private Map<String, String> answers;
@@ -50,7 +50,7 @@ public class OfferEntity {
     private BigDecimal totalPrice;
 
     @ElementCollection
-    @CollectionTable(name = "offer_cover", joinColumns = @JoinColumn(name = "offer_id"))
+    @CollectionTable(name = "offer_cover", joinColumns = @JoinColumn(name = "offer_id"), schema = "policy")
     @MapKeyColumn(name = "cover_code")
     @Column(name = "price")
     private Map<String, BigDecimal> coversPrices;

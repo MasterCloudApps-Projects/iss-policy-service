@@ -1,11 +1,15 @@
 package es.urjc.code.policy.service.api.v1.commands.createoffer.dto;
 
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 public class QuestionAnswer<T> {
+	@NotNull
     private String questionCode;
-    private T answer;
+	@NotNull
+	private T answer;
     
     public QuestionAnswer() {
 

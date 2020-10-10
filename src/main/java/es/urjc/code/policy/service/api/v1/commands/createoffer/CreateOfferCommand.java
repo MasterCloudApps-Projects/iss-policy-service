@@ -3,6 +3,9 @@ package es.urjc.code.policy.service.api.v1.commands.createoffer;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -11,10 +14,15 @@ import es.urjc.code.policy.service.api.v1.commands.createoffer.dto.QuestionAnswe
 
 public class CreateOfferCommand implements Command<CreateOfferResult> {
     
+	@NotEmpty
 	private String productCode;
+	@NotNull
     private LocalDate policyFrom;
+	@NotNull
     private LocalDate policyTo;
+	@NotNull
     private List<String> selectedCovers;
+	@NotNull
     private List<QuestionAnswer> answers;
     
     public String getProductCode() {

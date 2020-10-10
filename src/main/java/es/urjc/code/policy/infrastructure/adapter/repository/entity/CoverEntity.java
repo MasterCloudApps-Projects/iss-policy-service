@@ -14,7 +14,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "cover")
+@Table(name = "cover", schema = "policy")
 public class CoverEntity {
 	
     @Id

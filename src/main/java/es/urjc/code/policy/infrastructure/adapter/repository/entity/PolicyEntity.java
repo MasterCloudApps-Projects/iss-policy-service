@@ -17,7 +17,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "policy")
+@Table(name = "policy", schema = "policy")
 public class PolicyEntity {
     @Id
     @GeneratedValue

@@ -22,7 +22,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 @Entity
-@Table(name = "policy_version")
+@Table(name = "policy_version", schema = "policy")
 public class PolicyVersionEntity {
 	
     @Id
