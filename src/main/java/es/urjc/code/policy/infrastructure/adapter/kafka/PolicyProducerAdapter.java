@@ -56,7 +56,7 @@ public class PolicyProducerAdapter implements PublishPolicyStatePort {
 
 	private PolicyDto createPolicyDto(Policy policy) {
 		PolicyVersion lastVersion = policy.versions().lastVersion();
-    	PolicyDto dto = new PolicyDto.Builder()
+		return new PolicyDto.Builder()
     			                     .withNumber(policy.getNumber())
     			                     .withFrom(lastVersion.getVersionValidityPeriod().getFrom())
     			                     .withTo(lastVersion.getVersionValidityPeriod().getTo())
@@ -65,7 +65,6 @@ public class PolicyProducerAdapter implements PublishPolicyStatePort {
     			                     .withTotalPremium(lastVersion.getTotalPremiumAmount())
     			                     .withAgentLogin(policy.getAgent().getLogin())
     			                     .build();
-		return dto;
 	}
 
 }

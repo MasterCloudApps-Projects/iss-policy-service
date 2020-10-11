@@ -57,7 +57,7 @@ public class OfferRepositoryAdapter implements LoadOfferPort, UpdateOfferPort {
 	}
 
 	private Offer newOffer(CalculatePriceCommand calcPriceCmd, CalculatePriceResult calcPriceResult) {
-		final Offer offer = new Offer.Builder()
+		return new Offer.Builder()
 		         .withNumber(UUID.randomUUID().toString())
 		         .withProductCode(calcPriceCmd.getProductCode())
 		         .withPolicyFrom(calcPriceCmd.getPolicyFrom())
@@ -68,7 +68,6 @@ public class OfferRepositoryAdapter implements LoadOfferPort, UpdateOfferPort {
 		         .withStatus(OfferStatus.NEW)
 		         .withCreationDate(LocalDate.now())
 		         .build();
-		return offer;
 	}
 
     private static Map<String, String> constructAnswers(List<QuestionAnswer> answers) {
