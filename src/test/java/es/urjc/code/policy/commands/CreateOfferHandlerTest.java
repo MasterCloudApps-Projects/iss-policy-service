@@ -19,7 +19,7 @@ import es.urjc.code.policy.service.api.v1.commands.createoffer.CreateOfferComman
 import es.urjc.code.policy.service.api.v1.commands.createoffer.CreateOfferResult;
 import es.urjc.code.policy.service.api.v1.commands.createoffer.dto.QuestionAnswer;
 
-public class CreateOfferHandlerTest {
+class CreateOfferHandlerTest {
 
 	private static final String CODE_CAR = "CAR";
 	private static final String OFFER_NUMBER = "111";

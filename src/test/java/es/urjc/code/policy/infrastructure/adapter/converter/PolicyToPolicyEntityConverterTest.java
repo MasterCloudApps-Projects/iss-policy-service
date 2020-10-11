@@ -13,7 +13,7 @@ import es.urjc.code.policy.domain.AgentRef;
 import es.urjc.code.policy.domain.Policy;
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyEntity;
 
-public class PolicyToPolicyEntityConverterTest {
+class PolicyToPolicyEntityConverterTest {
 	
 	
 	private static final String ADMIN_AGENT = "admin";
@@ -30,7 +30,7 @@ public class PolicyToPolicyEntityConverterTest {
 	}
 	
 	@Test
-	public void shouldBeConvert() {
+	void shouldBeConvert() {
 		// given
 		final Policy policy = getPolicy();
 		// when

@@ -14,7 +14,7 @@ import es.urjc.code.policy.domain.PolicyVersion;
 import es.urjc.code.policy.domain.vo.DateRange;
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyVersionEntity;
 
-public class PolicyVersionToPolicyVersionEntityConverterTest {
+class PolicyVersionToPolicyVersionEntityConverterTest {
 	
 	private static final String PESEL = "111111116";
 	private static final String LASTNAME = "Poirier";
@@ -30,7 +30,7 @@ public class PolicyVersionToPolicyVersionEntityConverterTest {
 	}
 	
 	@Test
-	public void shouldBeConvert() {
+	void shouldBeConvert() {
 		final PolicyVersion version =  getPolicyVersion();
 		final PolicyVersionEntity response = this.sut.convert(version);
 		assertEquals(PRODUCT_CODE, response.getProductCode());

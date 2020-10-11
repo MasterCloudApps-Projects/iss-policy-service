@@ -13,7 +13,7 @@ import es.codeurjc.policy.command.bus.Bus;
 import es.urjc.code.policy.service.api.v1.queries.getpolicydetails.GetPolicyDetailsQuery;
 import es.urjc.code.policy.service.api.v1.queries.getpolicydetails.GetPolicyDetailsQueryResult;
 
-public class PoliciesQueryControllerTest {
+class PoliciesQueryControllerTest {
 
 	public static final String POLICY_NUMBER = "P1212121";
 	private Bus bus;

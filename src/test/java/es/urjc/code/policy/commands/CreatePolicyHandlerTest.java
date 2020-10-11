@@ -20,7 +20,7 @@ import es.urjc.code.policy.service.api.v1.commands.createpolicy.CreatePolicyComm
 import es.urjc.code.policy.service.api.v1.commands.createpolicy.CreatePolicyResult;
 import es.urjc.code.policy.service.api.v1.commands.createpolicy.dto.PersonDto;
 
-public class CreatePolicyHandlerTest {
+class CreatePolicyHandlerTest {
 	
 	private static final String TAXID = "111111116";
 	private static final String LASTNAME = "Poirier";

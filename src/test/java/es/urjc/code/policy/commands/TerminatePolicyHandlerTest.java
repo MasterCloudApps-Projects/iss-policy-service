@@ -15,7 +15,7 @@ import es.urjc.code.policy.domain.Policy;
 import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePolicyCommand;
 import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePolicyResult;
 
-public class TerminatePolicyHandlerTest {
+class TerminatePolicyHandlerTest {
 
 	private UpdatePolicyPort updatePolicyPort;
 	private PublishPolicyStatePort publishPolicyStatePort;

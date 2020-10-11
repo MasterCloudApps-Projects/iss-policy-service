@@ -37,7 +37,7 @@ import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyEntity
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyVersionEntity;
 import es.urjc.code.policy.infrastructure.adapter.repository.jpa.PolicyJpaRepository;
 
-public class PolicyRepositoryAdapterTest {
+class PolicyRepositoryAdapterTest {
 
 	public static final String POLICY_NUMBER = "P1212121";
 	private static final String CODE_CAR = "CAR";
@@ -92,10 +92,6 @@ public class PolicyRepositoryAdapterTest {
 		assertEquals(POLICY_NUMBER, response.getNumber());
 	}
 	
-	private PolicyVersionEntity getPolicyVersionEntity() {
-		return new PolicyVersionEntity.Builder().build();
-	}
-
 
 	@Test
 	void shouldBeCreatePolicy() {
@@ -173,6 +169,10 @@ public class PolicyRepositoryAdapterTest {
 				         .build();
 	}
 	
+	private PolicyVersionEntity getPolicyVersionEntity() {
+		return new PolicyVersionEntity.Builder().build();
+	}
+
 	private AgentRef getAgentRef() {
 		return new AgentRef.Builder().withLogin("admin").build();
 	}

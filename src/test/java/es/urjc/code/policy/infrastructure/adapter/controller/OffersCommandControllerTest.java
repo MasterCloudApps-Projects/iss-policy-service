@@ -13,7 +13,7 @@ import es.codeurjc.policy.command.bus.Bus;
 import es.urjc.code.policy.service.api.v1.commands.createoffer.CreateOfferCommand;
 import es.urjc.code.policy.service.api.v1.commands.createoffer.CreateOfferResult;
 
-public class OffersCommandControllerTest {
+class OffersCommandControllerTest {
 
 	private Bus bus;
 	private OffersCommandController sut;

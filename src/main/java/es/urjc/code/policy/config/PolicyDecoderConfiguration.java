@@ -15,7 +15,7 @@ public class PolicyDecoderConfiguration {
 	}
 	
 	@Bean
-	public ErrorDecoder ospFeignErrorDecoder() {
+	public ErrorDecoder policyFeignErrorDecoder() {
 		return new PolicyErrorDecoder();
 	}
 }

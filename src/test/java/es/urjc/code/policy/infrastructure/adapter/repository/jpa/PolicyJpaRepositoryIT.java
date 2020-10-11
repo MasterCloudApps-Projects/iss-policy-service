@@ -17,7 +17,7 @@ import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyEntity
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @ContextConfiguration(initializers = { AbstractContainerBaseTest.PropertiesInitializer.class })
-public class PolicyJpaRepositoryIT extends AbstractContainerBaseTest {
+class PolicyJpaRepositoryIT extends AbstractContainerBaseTest {
 	
 	private static final String ADMIN_AGENT = "admin";
 	public static final String POLICY_NUMBER = "P1212121";

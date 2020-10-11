@@ -13,7 +13,7 @@ import es.urjc.code.policy.domain.Policy;
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.AgentRefEmbeddable;
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyEntity;
 
-public class PolicyEntityToPolicyConverterTest {
+class PolicyEntityToPolicyConverterTest {
 
 	private static final String ADMIN_AGENT = "admin";
 	private static final UUID ID = UUID.randomUUID();
@@ -28,7 +28,7 @@ public class PolicyEntityToPolicyConverterTest {
 	}
 	
 	@Test
-	public void shouldBeConvert() {
+	void shouldBeConvert() {
 		// given
 		final PolicyEntity entity = getPolicyEntity();
 		// when

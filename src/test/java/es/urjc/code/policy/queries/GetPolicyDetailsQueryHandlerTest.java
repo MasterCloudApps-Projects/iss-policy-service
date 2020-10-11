@@ -15,7 +15,7 @@ import es.urjc.code.policy.queries.GetPolicyDetailsQueryHandler;
 import es.urjc.code.policy.service.api.v1.queries.getpolicydetails.GetPolicyDetailsQuery;
 import es.urjc.code.policy.service.api.v1.queries.getpolicydetails.GetPolicyDetailsQueryResult;
 
-public class GetPolicyDetailsQueryHandlerTest {
+class GetPolicyDetailsQueryHandlerTest {
 
 	private LoadPolicyPort loadPolicyPort;
 	private GetPolicyDetailsQueryHandler sut;

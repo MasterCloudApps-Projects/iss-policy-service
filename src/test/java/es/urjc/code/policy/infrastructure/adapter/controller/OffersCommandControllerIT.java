@@ -6,7 +6,7 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class OffersCommandControllerIT extends AbstractControllerIT {
+class OffersCommandControllerIT extends AbstractControllerIT {
 
 
 }

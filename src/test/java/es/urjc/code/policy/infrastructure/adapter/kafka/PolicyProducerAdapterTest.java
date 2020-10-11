@@ -13,7 +13,7 @@ import org.springframework.messaging.MessageChannel;
 import es.urjc.code.policy.PolicyBuilder;
 import es.urjc.code.policy.domain.Policy;
 
-public class PolicyProducerAdapterTest {
+class PolicyProducerAdapterTest {
 
 	private PoliciesStreams policiesStreams; 
 	private PolicyProducerAdapter sut;

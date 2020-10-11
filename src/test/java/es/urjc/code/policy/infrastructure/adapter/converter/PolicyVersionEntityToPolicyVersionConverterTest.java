@@ -14,7 +14,7 @@ import es.urjc.code.policy.infrastructure.adapter.repository.entity.DateRangeEmb
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.PersonEmbeddable;
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyVersionEntity;
 
-public class PolicyVersionEntityToPolicyVersionConverterTest {
+class PolicyVersionEntityToPolicyVersionConverterTest {
 
 	private static final String PESEL = "111111116";
 	private static final String LASTNAME = "Poirier";
@@ -29,7 +29,7 @@ public class PolicyVersionEntityToPolicyVersionConverterTest {
 	}
 	
 	@Test
-	public void shouldBeConvert() {
+	void shouldBeConvert() {
 		final PolicyVersionEntity entity =  getPolicyVersionEntity();
 		final PolicyVersion response = this.sut.convert(entity);
 		assertEquals(PRODUCT_CODE, response.getProductCode());

@@ -15,7 +15,7 @@ import es.urjc.code.policy.service.api.v1.commands.createpolicy.CreatePolicyResu
 import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePolicyCommand;
 import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePolicyResult;
 
-public class PoliciesCommandControllerTest {
+class PoliciesCommandControllerTest {
 
 	private Bus bus;
 	private PoliciesCommandController sut;

@@ -22,7 +22,7 @@ import es.urjc.code.policy.infrastructure.adapter.repository.entity.OfferStatusE
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @ContextConfiguration(initializers = { AbstractContainerBaseTest.PropertiesInitializer.class })
-public class OfferJpaRepositoryIT extends AbstractContainerBaseTest {
+class OfferJpaRepositoryIT extends AbstractContainerBaseTest {
 
 	private static final String OFFER_NUMBER = "111";
 	private static final String CODE_CAR = "CAR";

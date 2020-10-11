@@ -15,7 +15,7 @@ import es.urjc.code.policy.domain.OfferStatus;
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.OfferEntity;
 import es.urjc.code.policy.infrastructure.adapter.repository.entity.OfferStatusEnum;
 
-public class OfferEntityToOfferConverterTest {
+class OfferEntityToOfferConverterTest {
 	
 	private static final String OFFER_NUMBER = "111";
 	private static final String CODE_CAR = "CAR";
@@ -27,7 +27,7 @@ public class OfferEntityToOfferConverterTest {
 	}
 	
 	@Test
-	public void shouldBeConvert() {
+	void shouldBeConvert() {
 		// given
 		final OfferEntity entity = getOfferEntity();
 		// when

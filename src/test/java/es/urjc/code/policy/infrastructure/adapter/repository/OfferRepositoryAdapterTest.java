@@ -21,7 +21,7 @@ import es.urjc.code.policy.infrastructure.adapter.repository.jpa.OfferJpaReposit
 import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePriceCommand;
 import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePriceResult;
 
-public class OfferRepositoryAdapterTest {
+class OfferRepositoryAdapterTest {
 
 	private static final LocalDate EXPIRED_DATE = LocalDate.now().minusDays(40);
 	private static final LocalDate NOT_EXPIRED_DATE = LocalDate.now().minusDays(29);
