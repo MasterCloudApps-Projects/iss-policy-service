@@ -51,6 +51,18 @@ class RestExceptionHandlerTest {
     }
 
     @Test
+    void testCommunicationException() throws Exception {
+        mockMvc.perform(get("/test/communication-exception")).andExpect(status().isInternalServerError())
+                .andExpect(jsonPath("$.message").value("communication error"));
+    }
+    
+    @Test
+    void testNotAvailableException() throws Exception {
+        mockMvc.perform(get("/test/notavailable-exception")).andExpect(status().isServiceUnavailable())
+                .andExpect(jsonPath("$.message").value("notavailable error"));
+    }
+    
+    @Test
     void testIOException() throws Exception {
         mockMvc.perform(get("/test/io-exception")).andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.message").value("Bad Request"));

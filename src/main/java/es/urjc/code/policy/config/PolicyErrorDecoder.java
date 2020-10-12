@@ -14,7 +14,9 @@ import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
 import es.urjc.code.policy.exception.BusinessException;
+import es.urjc.code.policy.exception.CommunicationException;
 import es.urjc.code.policy.exception.EntityNotFoundException;
+import es.urjc.code.policy.exception.NotAvailableException;
 import es.urjc.code.policy.handler.ErrorResponse;
 import feign.Response;
 import feign.codec.ErrorDecoder;
@@ -44,10 +46,6 @@ public class PolicyErrorDecoder implements ErrorDecoder {
 		}
 
 		HttpStatus status = HttpStatus.valueOf(response.status());
-		if (status == HttpStatus.SERVICE_UNAVAILABLE) {
-			return delegate.decode(methodKey, response);
-		}
-
 		return buildException(status, doDecodeResponse(response));
 	}
 	
@@ -93,6 +91,14 @@ public class PolicyErrorDecoder implements ErrorDecoder {
 			return new BusinessException(errorResponse.getMessage());
 		}
 
+		if (status == HttpStatus.SERVICE_UNAVAILABLE) {
+			return new NotAvailableException(errorResponse.getMessage());
+		}
+
+		if (status == HttpStatus.INTERNAL_SERVER_ERROR) {
+			return new CommunicationException(errorResponse.getMessage());
+		}
+		
 		return new RuntimeException();
 	}
 }

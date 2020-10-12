@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import es.urjc.code.policy.exception.BusinessException;
+import es.urjc.code.policy.exception.CommunicationException;
 import es.urjc.code.policy.exception.EntityNotFoundException;
+import es.urjc.code.policy.exception.NotAvailableException;
 
 @RestControllerAdvice
 public class RestExceptionHandler
@@ -42,4 +44,25 @@ public class RestExceptionHandler
                 .withMessage(ex.getMessage())
                 .build();
     }
+    
+    @ExceptionHandler(value = { NotAvailableException.class })
+    @ResponseStatus(HttpStatus.SERVICE_UNAVAILABLE)
+    public ErrorResponse notAvailableException(Exception ex)
+    {
+        return new ErrorResponse.Builder()
+                .withStatus(503)
+                .withMessage(ex.getMessage())
+                .build();
+    }
+    
+    @ExceptionHandler(value = { CommunicationException.class })
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse communicationException(Exception ex)
+    {
+        return new ErrorResponse.Builder()
+                .withStatus(500)
+                .withMessage(ex.getMessage())
+                .build();
+    }
+    
 }

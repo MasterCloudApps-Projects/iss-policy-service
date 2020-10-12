@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.urjc.code.policy.exception.BusinessException;
+import es.urjc.code.policy.exception.CommunicationException;
 import es.urjc.code.policy.exception.EntityNotFoundException;
+import es.urjc.code.policy.exception.NotAvailableException;
 
 @RestController
 public class TestController {
@@ -30,7 +32,17 @@ public class TestController {
     public void business() {
         throw new BusinessException("business error");
     }
+    
+    @GetMapping("/test/communication-exception")
+    public void communication() {
+        throw new CommunicationException("communication error");
+    }
 
+    @GetMapping("/test/notavailable-exception")
+    public void notavailable() {
+        throw new NotAvailableException("notavailable error");
+    }
+    
     @GetMapping("/test/io-exception")
     public void io() throws IOException {
         throw new IOException("io error");
