@@ -23,7 +23,7 @@ import feign.Request;
 import feign.Request.HttpMethod;
 import feign.Response;
 
-class PolicyErrorDecoderTest {
+class DefaultErrorDecoderTest {
 
 	private static final String METHOD_KEY = "test";
 	private static final Integer GENERIC_ERROR = 1100;
@@ -31,11 +31,11 @@ class PolicyErrorDecoderTest {
 	private static final String DOMAIN = "http://domain";
 
 	private ObjectMapper mapper = new ObjectMapper();
-	private PolicyErrorDecoder policyFeignErrorDecoder;
+	private DefaultErrorDecoder policyFeignErrorDecoder;
 
 	@BeforeEach
 	public void setUp() {
-		this.policyFeignErrorDecoder = new PolicyErrorDecoder();
+		this.policyFeignErrorDecoder = new DefaultErrorDecoder();
 	}
 
 

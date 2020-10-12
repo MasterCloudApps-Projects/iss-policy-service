@@ -7,7 +7,7 @@ import feign.Logger;
 import feign.codec.ErrorDecoder;
 
 @Configuration
-public class PolicyDecoderConfiguration {
+public class DefaultDecoderConfiguration {
 	
 	@Bean
 	public Logger.Level feignLoggerLevel() {
@@ -16,6 +16,6 @@ public class PolicyDecoderConfiguration {
 	
 	@Bean
 	public ErrorDecoder policyFeignErrorDecoder() {
-		return new PolicyErrorDecoder();
+		return new DefaultErrorDecoder();
 	}
 }

@@ -21,13 +21,13 @@ import es.urjc.code.policy.handler.ErrorResponse;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
-public class PolicyErrorDecoder implements ErrorDecoder {
+public class DefaultErrorDecoder implements ErrorDecoder {
 	
-	private static final Logger LOG = LoggerFactory.getLogger(PolicyErrorDecoder.class);
+	private static final Logger LOG = LoggerFactory.getLogger(DefaultErrorDecoder.class);
 	protected final ErrorDecoder delegate;
 	private ObjectMapper mapper;
 
-	public PolicyErrorDecoder() {
+	public DefaultErrorDecoder() {
 		this.delegate = new ErrorDecoder.Default();
 		this.mapper = new ObjectMapper();
 		this.mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
