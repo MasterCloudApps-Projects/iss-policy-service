@@ -1,0 +1,359 @@
+openapi: 3.0.1
+info:
+  title: Policy service API
+  description: This is a policy service API using springdoc-openapi and OpenAPI 3.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8082'
+    description: Generated server url
+tags:
+  - name: offers
+    description: the Offers API
+  - name: policies
+    description: the policies API
+paths:
+  /api/v1/policies/terminate:
+    post:
+      tags:
+        - policies
+      summary: Terminate policy
+      operationId: terminate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TerminatePolicyCommand'
+      responses:
+        '201':
+          description: Terminate policy
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TerminatePolicyResult'
+        '400':
+          description: Invalid input
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/policies:
+    post:
+      tags:
+        - policies
+      summary: Create policy
+      operationId: create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePolicyCommand'
+      responses:
+        '201':
+          description: Create policy
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreatePolicyResult'
+        '400':
+          description: Invalid input
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  '/api/v1/policies/{policyNumber}':
+    get:
+      tags:
+        - policies
+      summary: Get policy by policy number
+      description: Returns a single policy
+      operationId: get
+      parameters:
+        - name: policyNumber
+          in: path
+          description: policy number of the policy to be obtained. Cannot be empty.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/GetPolicyDetailsQueryResult'
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Policy not found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/v1/offers:
+    post:
+      tags:
+        - offers
+      summary: Create offer
+      operationId: create_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOfferCommand'
+      responses:
+        '201':
+          description: Create offer
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/CreateOfferResult'
+        '400':
+          description: Invalid input
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Not Found
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '503':
+          description: Service Unavailable
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          format: int32
+        message:
+          type: string
+    TerminatePolicyCommand:
+      required:
+        - policyNumber
+      type: object
+      properties:
+        policyNumber:
+          type: string
+      description: Terminate policy command. Cannot null or empty.
+    TerminatePolicyResult:
+      required:
+        - policyNumber
+      type: object
+      properties:
+        policyNumber:
+          type: string
+    CreatePolicyCommand:
+      required:
+        - agentLogin
+        - offerNumber
+        - policyHolder
+      type: object
+      properties:
+        offerNumber:
+          type: string
+        policyHolder:
+          $ref: '#/components/schemas/PersonDto'
+        agentLogin:
+          type: string
+      description: Create policy command. Cannot null or empty.
+    PersonDto:
+      required:
+        - firstName
+        - lastName
+        - taxId
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        taxId:
+          type: string
+    CreatePolicyResult:
+      required:
+        - policyNumber
+      type: object
+      properties:
+        policyNumber:
+          type: string
+    GetPolicyDetailsQueryResult:
+      required:
+        - policy
+      type: object
+      properties:
+        policy:
+          $ref: '#/components/schemas/PolicyDetailsDto'
+    PolicyDetailsDto:
+      required:
+        - accountNumber
+        - covers
+        - dateFrom
+        - dateTo
+        - number
+        - policyHolder
+        - productCode
+        - totalPremium
+      type: object
+      properties:
+        number:
+          type: string
+        dateFrom:
+          type: string
+          format: date
+        dateTo:
+          type: string
+          format: date
+        policyHolder:
+          type: string
+        totalPremium:
+          type: number
+        productCode:
+          type: string
+        accountNumber:
+          type: string
+        covers:
+          uniqueItems: true
+          type: array
+          items:
+            type: string
+    CreateOfferCommand:
+      required:
+        - answers
+        - policyFrom
+        - policyTo
+        - productCode
+        - selectedCovers
+      type: object
+      properties:
+        productCode:
+          type: string
+        policyFrom:
+          type: string
+          format: date
+        policyTo:
+          type: string
+          format: date
+        selectedCovers:
+          type: array
+          items:
+            type: string
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuestionAnswer'
+      description: Create offer command. Cannot null or empty.
+    QuestionAnswer:
+      required:
+        - answer
+        - questionCode
+      type: object
+      properties:
+        questionCode:
+          type: string
+        answer:
+          type: object
+    CreateOfferResult:
+      required:
+        - coversPrices
+        - offerNumber
+        - totalPrice
+      type: object
+      properties:
+        offerNumber:
+          type: string
+        totalPrice:
+          type: number
+        coversPrices:
+          type: object
+          additionalProperties:
+            type: number

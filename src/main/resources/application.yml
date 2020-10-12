@@ -14,7 +14,8 @@ spring:
     stream:
       kafka:
         binder:
-          brokers: localhost:9092
+          brokers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
+          auto-add-partitions: true
       bindings:
         policy-registered:
           destination: policy-registered-out
@@ -22,12 +23,14 @@ spring:
             partitionKeyExpression: payload.policyTerminatedEvent.policy.number
             partitionCount: 2          
           contentType: application/json    
+          group: policy    
         policy-terminated:
           destination: policy-terminated-out
           producer:
             partitionKeyExpression: payload.policyRegisteredEvent.policy.number
             partitionCount: 2          
-          contentType: application/json    
+          contentType: application/json
+          group: policy    
 
 pricing-service:
   url: http://localhost:8081 

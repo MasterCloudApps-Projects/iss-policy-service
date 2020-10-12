@@ -7,5 +7,5 @@ RUN mvn -B -f pom.xml clean package -DskipTests
 
 FROM openjdk:11-jdk-slim
 COPY --from=BUILD_STAGE /workspace/target/iss-policy-service*.jar iss-policy-service.jar
-EXPOSE 8080
+EXPOSE 8082
 ENTRYPOINT ["java","-jar","iss-policy-service.jar"]
