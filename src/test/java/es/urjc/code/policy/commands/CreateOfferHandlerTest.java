@@ -12,7 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import es.urjc.code.policy.application.port.outgoing.PricingClient;
+import es.urjc.code.policy.application.port.outgoing.PricingClientPort;
 import es.urjc.code.policy.application.port.outgoing.UpdateOfferPort;
 import es.urjc.code.policy.domain.Offer;
 import es.urjc.code.policy.service.api.v1.commands.createoffer.CreateOfferCommand;
@@ -23,15 +23,15 @@ class CreateOfferHandlerTest {
 
 	private static final String CODE_CAR = "CAR";
 	private static final String OFFER_NUMBER = "111";
-	private PricingClient pricingClient;
+	private PricingClientPort pricingClientPort;
 	private UpdateOfferPort updateOfferPort;
 	private CreateOfferHandler sut;
 	
 	@BeforeEach
 	public void setUp() {
-		this.pricingClient = Mockito.mock(PricingClient.class);
+		this.pricingClientPort = Mockito.mock(PricingClientPort.class);
 		this.updateOfferPort = Mockito.mock(UpdateOfferPort.class);
-		this.sut = new CreateOfferHandler(pricingClient, updateOfferPort);
+		this.sut = new CreateOfferHandler(pricingClientPort, updateOfferPort);
 	}
 	
 	@Test
@@ -39,11 +39,11 @@ class CreateOfferHandlerTest {
 		// given
 		final CreateOfferCommand cmd = getCreateOfferCommand();
 		when(updateOfferPort.createOffer(any(), any())).thenReturn(new Offer.Builder().withNumber(OFFER_NUMBER).build());
-		when(pricingClient.calculatePrice(any())).thenReturn(any());
+		when(pricingClientPort.calculatePrice(any())).thenReturn(any());
 		//when
 		final CreateOfferResult result = this.sut.handle(cmd);
 		// then
-		verify(pricingClient).calculatePrice(any());
+		verify(pricingClientPort).calculatePrice(any());
 		verify(updateOfferPort).createOffer(any(), any());
 		assertNotNull(result);
 	}

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.codeurjc.policy.command.bus.CommandHandler;
-import es.urjc.code.policy.application.port.outgoing.PricingClient;
+import es.urjc.code.policy.application.port.outgoing.PricingClientPort;
 import es.urjc.code.policy.application.port.outgoing.UpdateOfferPort;
 import es.urjc.code.policy.domain.Offer;
 import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePriceCommand;
@@ -24,12 +24,12 @@ import es.urjc.code.policy.service.api.v1.commands.createoffer.dto.TextQuestionA
 @Component
 public class CreateOfferHandler implements CommandHandler<CreateOfferResult, CreateOfferCommand> {
 
-	private final PricingClient pricingClient;
+	private final PricingClientPort pricingClientPort;
 	private final UpdateOfferPort updateOfferPort;
 
 	@Autowired
-	public CreateOfferHandler(PricingClient pricingClient, UpdateOfferPort updateOfferPort) {
-		this.pricingClient = pricingClient;
+	public CreateOfferHandler(PricingClientPort pricingClientPort, UpdateOfferPort updateOfferPort) {
+		this.pricingClientPort = pricingClientPort;
 		this.updateOfferPort = updateOfferPort;
 	}
 
@@ -37,7 +37,7 @@ public class CreateOfferHandler implements CommandHandler<CreateOfferResult, Cre
 	@Override
 	public CreateOfferResult handle(CreateOfferCommand cmd) {
 		final CalculatePriceCommand calcPriceCmd = constructPriceCmd(cmd);
-		final CalculatePriceResult calcPriceResult = pricingClient.calculatePrice(calcPriceCmd);
+		final CalculatePriceResult calcPriceResult = pricingClientPort.calculatePrice(calcPriceCmd);
 		final Offer offer = updateOfferPort.createOffer(calcPriceCmd, calcPriceResult);
 		return new CreateOfferResult.Builder().withOfferNumber(offer.getNumber()).withTotalPrice(offer.getTotalPrice())
 				.withCoversPrices(offer.getCoversPrices()).build();
