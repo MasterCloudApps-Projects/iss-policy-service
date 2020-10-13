@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.MimeTypeUtils;
 
-import es.urjc.code.policy.application.port.outgoing.PublishPolicyStatePort;
+import es.urjc.code.policy.application.port.outgoing.PolicyEventProducerPort;
 import es.urjc.code.policy.domain.Policy;
 import es.urjc.code.policy.domain.PolicyVersion;
 import es.urjc.code.policy.service.api.v1.events.PolicyRegisteredEvent;
@@ -17,7 +17,7 @@ import es.urjc.code.policy.service.api.v1.events.dto.PolicyDto;
 
 @Service
 @Transactional
-public class PolicyProducerAdapter implements PublishPolicyStatePort {
+public class PolicyProducerAdapter implements PolicyEventProducerPort {
 
 	private final PoliciesStreams policiesStreams;
 	

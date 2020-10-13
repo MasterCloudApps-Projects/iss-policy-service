@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import es.codeurjc.policy.command.bus.CommandHandler;
 import es.urjc.code.policy.application.port.outgoing.LoadOfferPort;
-import es.urjc.code.policy.application.port.outgoing.PublishPolicyStatePort;
+import es.urjc.code.policy.application.port.outgoing.PolicyEventProducerPort;
 import es.urjc.code.policy.application.port.outgoing.UpdatePolicyPort;
 import es.urjc.code.policy.domain.AgentRef;
 import es.urjc.code.policy.domain.Offer;
@@ -20,13 +20,13 @@ public class CreatePolicyHandler implements CommandHandler<CreatePolicyResult,Cr
 
 	private final LoadOfferPort loadOfferPort;
 	private final UpdatePolicyPort updatePolicyPort;
-	private final PublishPolicyStatePort publishPolicyStatePort;
+	private final PolicyEventProducerPort policyEventProducerPort;
 	
 	@Autowired
-	public CreatePolicyHandler (LoadOfferPort loadOfferPort, UpdatePolicyPort updatePolicyPort, PublishPolicyStatePort publishPolicyStatePort) {
+	public CreatePolicyHandler (LoadOfferPort loadOfferPort, UpdatePolicyPort updatePolicyPort, PolicyEventProducerPort policyEventProducerPort) {
 		this.loadOfferPort = loadOfferPort;
 		this.updatePolicyPort = updatePolicyPort;
-		this.publishPolicyStatePort = publishPolicyStatePort;
+		this.policyEventProducerPort = policyEventProducerPort;
 	}
 	
 	
@@ -42,7 +42,7 @@ public class CreatePolicyHandler implements CommandHandler<CreatePolicyResult,Cr
         final AgentRef agent = new AgentRef.Builder().withLogin(cmd.getAgentLogin()).build();
         final Offer offer = loadOfferPort.getOffer(cmd.getOfferNumber());
     	final Policy policy = updatePolicyPort.createPolicy(offer, policyHolder, agent);
-    	publishPolicyStatePort.registered(policy);
+    	policyEventProducerPort.registered(policy);
     	return new CreatePolicyResult.Builder().withPolicyNumber(policy.getNumber()).build();
 	}
 

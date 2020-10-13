@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import es.urjc.code.policy.PolicyBuilder;
-import es.urjc.code.policy.application.port.outgoing.PublishPolicyStatePort;
+import es.urjc.code.policy.application.port.outgoing.PolicyEventProducerPort;
 import es.urjc.code.policy.application.port.outgoing.UpdatePolicyPort;
 import es.urjc.code.policy.domain.Policy;
 import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePolicyCommand;
@@ -18,14 +18,14 @@ import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePoli
 class TerminatePolicyHandlerTest {
 
 	private UpdatePolicyPort updatePolicyPort;
-	private PublishPolicyStatePort publishPolicyStatePort;
+	private PolicyEventProducerPort policyEventProducerPort;
 	private TerminatePolicyHandler sut;
 	
 	@BeforeEach
 	public void setUp() {
 		this.updatePolicyPort = Mockito.mock(UpdatePolicyPort.class);
-		this.publishPolicyStatePort = Mockito.mock(PublishPolicyStatePort.class);
-		this.sut = new TerminatePolicyHandler(updatePolicyPort, publishPolicyStatePort);
+		this.policyEventProducerPort = Mockito.mock(PolicyEventProducerPort.class);
+		this.sut = new TerminatePolicyHandler(updatePolicyPort, policyEventProducerPort);
 	}
 	
 	@Test
@@ -38,7 +38,7 @@ class TerminatePolicyHandlerTest {
 		final TerminatePolicyResult result = this.sut.handle(cmd);
 		// then
 		verify(updatePolicyPort).updateTerminateState(PolicyBuilder.POLICY_NUMBER);
-		verify(publishPolicyStatePort).terminated(policy);
+		verify(policyEventProducerPort).terminated(policy);
 		assertEquals(policy.getNumber(),result.getPolicyNumber());
 	}
 	

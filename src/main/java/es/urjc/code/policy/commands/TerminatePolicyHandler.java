@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import es.codeurjc.policy.command.bus.CommandHandler;
-import es.urjc.code.policy.application.port.outgoing.PublishPolicyStatePort;
+import es.urjc.code.policy.application.port.outgoing.PolicyEventProducerPort;
 import es.urjc.code.policy.application.port.outgoing.UpdatePolicyPort;
 import es.urjc.code.policy.domain.Policy;
 import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePolicyCommand;
@@ -16,18 +16,18 @@ import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePoli
 public class TerminatePolicyHandler implements CommandHandler<TerminatePolicyResult,TerminatePolicyCommand> {
 
 	private final UpdatePolicyPort updatePolicyPort;
-	private final PublishPolicyStatePort publishPolicyStatePort;
+	private final PolicyEventProducerPort policyEventProducerPort;
 	
 	@Autowired
-	public TerminatePolicyHandler (UpdatePolicyPort updatePolicyPort, PublishPolicyStatePort publishPolicyStatePort) {
+	public TerminatePolicyHandler (UpdatePolicyPort updatePolicyPort, PolicyEventProducerPort policyEventProducerPort) {
 		this.updatePolicyPort = updatePolicyPort;
-		this.publishPolicyStatePort = publishPolicyStatePort;
+		this.policyEventProducerPort = policyEventProducerPort;
 	}
 	
 	@Override
 	public TerminatePolicyResult handle(TerminatePolicyCommand command) {
     	final Policy policy = updatePolicyPort.updateTerminateState(command.getPolicyNumber());
-    	publishPolicyStatePort.terminated(policy);   	
+    	policyEventProducerPort.terminated(policy);   	
 		return new TerminatePolicyResult.Builder().withPolicyNumber(policy.getNumber()).build();
 	}
 

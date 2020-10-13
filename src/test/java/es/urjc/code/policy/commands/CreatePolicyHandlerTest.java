@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 
 import es.urjc.code.policy.PolicyBuilder;
 import es.urjc.code.policy.application.port.outgoing.LoadOfferPort;
-import es.urjc.code.policy.application.port.outgoing.PublishPolicyStatePort;
+import es.urjc.code.policy.application.port.outgoing.PolicyEventProducerPort;
 import es.urjc.code.policy.application.port.outgoing.UpdatePolicyPort;
 import es.urjc.code.policy.domain.AgentRef;
 import es.urjc.code.policy.domain.Offer;
@@ -29,15 +29,15 @@ class CreatePolicyHandlerTest {
 	private static final String OFFER_NUMBER = "111";
 	private LoadOfferPort loadOfferPort;
 	private UpdatePolicyPort updatePolicyPort;
-	private PublishPolicyStatePort publishPolicyStatePort;
+	private PolicyEventProducerPort policyEventProducerPort;
 	private CreatePolicyHandler sut;
 	
 	@BeforeEach
 	public void setUp() {
 		this.loadOfferPort = Mockito.mock(LoadOfferPort.class);
 		this.updatePolicyPort = Mockito.mock(UpdatePolicyPort.class);
-		this.publishPolicyStatePort = Mockito.mock(PublishPolicyStatePort.class);
-		this.sut = new CreatePolicyHandler(loadOfferPort, updatePolicyPort, publishPolicyStatePort);
+		this.policyEventProducerPort = Mockito.mock(PolicyEventProducerPort.class);
+		this.sut = new CreatePolicyHandler(loadOfferPort, updatePolicyPort, policyEventProducerPort);
 	}
 	
 	@Test
@@ -55,7 +55,7 @@ class CreatePolicyHandlerTest {
 		// then
 		verify(loadOfferPort).getOffer(OFFER_NUMBER);
 		verify(updatePolicyPort).createPolicy(offer, policyHolder, agent);
-		verify(publishPolicyStatePort).registered(policy);
+		verify(policyEventProducerPort).registered(policy);
 		assertEquals(policy.getNumber(),result.getPolicyNumber());
 	}
     
