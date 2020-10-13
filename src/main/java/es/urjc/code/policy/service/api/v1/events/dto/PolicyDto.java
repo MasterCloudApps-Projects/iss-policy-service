@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
 
 public class PolicyDto {
 	
@@ -52,6 +55,38 @@ public class PolicyDto {
         return agentLogin;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof PolicyDto)) return false;
+
+        PolicyDto that = (PolicyDto) o;
+
+        return new EqualsBuilder()
+                .append(number, that.number)
+                .append(from, that.from)
+                .append(to, that.to)
+                .append(policyHolder, that.policyHolder)
+                .append(productCode, that.productCode)
+                .append(totalPremium, that.totalPremium)
+                .append(agentLogin, that.agentLogin)
+                .isEquals();
+    }
+
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(number)
+                .append(from)
+                .append(to)
+                .append(policyHolder)
+                .append(productCode)
+                .append(totalPremium)
+                .append(agentLogin)
+                .toHashCode();
+    }    
     public static final class Builder {
 
         private final PolicyDto object;

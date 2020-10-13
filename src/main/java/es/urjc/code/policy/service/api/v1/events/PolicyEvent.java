@@ -7,7 +7,7 @@ import es.urjc.code.policy.service.api.v1.events.dto.PolicyDto;
 public class PolicyEvent {
 	
 	@NotNull
-    private PolicyDto policy;
+    protected PolicyDto policy;
 
 	public PolicyDto getPolicy() {
 		return policy;
