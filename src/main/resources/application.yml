@@ -17,15 +17,15 @@ spring:
           brokers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
           auto-add-partitions: true
       bindings:
-        policy-registered:
-          destination: policy-registered-out
+        policy-registered-out:
+          destination: policy-registered
           producer:
             partitionKeyExpression: payload.policyTerminatedEvent.policy.number
             partitionCount: 2          
           contentType: application/json    
           group: policy    
-        policy-terminated:
-          destination: policy-terminated-out
+        policy-terminated-out:
+          destination: policy-terminated
           producer:
             partitionKeyExpression: payload.policyRegisteredEvent.policy.number
             partitionCount: 2          

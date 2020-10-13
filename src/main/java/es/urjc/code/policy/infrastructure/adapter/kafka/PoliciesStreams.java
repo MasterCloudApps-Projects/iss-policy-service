@@ -5,8 +5,8 @@ import org.springframework.messaging.MessageChannel;
 
 public interface PoliciesStreams {
 
-	final String OUTPUT_POLICY_REGISTRED = "policy-registered";
-	final String OUTPUT_POLICY_TERMINATED = "policy-terminated";
+	final String OUTPUT_POLICY_REGISTRED = "policy-registered-out";
+	final String OUTPUT_POLICY_TERMINATED = "policy-terminated-out";
 	
 	@Output(OUTPUT_POLICY_TERMINATED)
 	MessageChannel outboundTerminated();
