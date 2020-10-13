@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.codeurjc.policy.command.bus.CommandHandler;
+import es.urjc.code.policy.application.port.incoming.CreatePolicyUseCase;
 import es.urjc.code.policy.application.port.outgoing.LoadOfferPort;
 import es.urjc.code.policy.application.port.outgoing.PolicyEventProducerPort;
 import es.urjc.code.policy.application.port.outgoing.UpdatePolicyPort;
@@ -16,7 +16,7 @@ import es.urjc.code.policy.service.api.v1.commands.createpolicy.CreatePolicyComm
 import es.urjc.code.policy.service.api.v1.commands.createpolicy.CreatePolicyResult;
 
 @Component
-public class CreatePolicyHandler implements CommandHandler<CreatePolicyResult,CreatePolicyCommand> {
+public class CreatePolicyHandler implements CreatePolicyUseCase {
 
 	private final LoadOfferPort loadOfferPort;
 	private final UpdatePolicyPort updatePolicyPort;
@@ -32,15 +32,15 @@ public class CreatePolicyHandler implements CommandHandler<CreatePolicyResult,Cr
 	
     @Transactional
 	@Override
-	public CreatePolicyResult handle(CreatePolicyCommand cmd) {
+	public CreatePolicyResult handle(CreatePolicyCommand command) {
         
         final Person policyHolder = new Person.Builder()
-        		                              .withFirstName(cmd.getPolicyHolder().getFirstName())
-        		                              .withLastName(cmd.getPolicyHolder().getLastName())
-        		                              .withPesel(cmd.getPolicyHolder().getTaxId())
+        		                              .withFirstName(command.getPolicyHolder().getFirstName())
+        		                              .withLastName(command.getPolicyHolder().getLastName())
+        		                              .withPesel(command.getPolicyHolder().getTaxId())
         		                              .build(); 
-        final AgentRef agent = new AgentRef.Builder().withLogin(cmd.getAgentLogin()).build();
-        final Offer offer = loadOfferPort.getOffer(cmd.getOfferNumber());
+        final AgentRef agent = new AgentRef.Builder().withLogin(command.getAgentLogin()).build();
+        final Offer offer = loadOfferPort.getOffer(command.getOfferNumber());
     	final Policy policy = updatePolicyPort.createPolicy(offer, policyHolder, agent);
     	policyEventProducerPort.registered(policy);
     	return new CreatePolicyResult.Builder().withPolicyNumber(policy.getNumber()).build();

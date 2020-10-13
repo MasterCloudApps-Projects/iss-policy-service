@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.codeurjc.policy.command.bus.CommandHandler;
+import es.urjc.code.policy.application.port.incoming.CreateOfferUseCase;
 import es.urjc.code.policy.application.port.outgoing.PricingClientPort;
 import es.urjc.code.policy.application.port.outgoing.UpdateOfferPort;
 import es.urjc.code.policy.domain.Offer;
@@ -22,7 +22,7 @@ import es.urjc.code.policy.service.api.v1.commands.createoffer.dto.QuestionAnswe
 import es.urjc.code.policy.service.api.v1.commands.createoffer.dto.TextQuestionAnswer;
 
 @Component
-public class CreateOfferHandler implements CommandHandler<CreateOfferResult, CreateOfferCommand> {
+public class CreateOfferHandler implements CreateOfferUseCase {
 
 	private final PricingClientPort pricingClientPort;
 	private final UpdateOfferPort updateOfferPort;

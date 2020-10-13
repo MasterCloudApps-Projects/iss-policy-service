@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.codeurjc.policy.command.bus.QueryHandler;
+import es.urjc.code.policy.application.port.incoming.GetPolicyDetailsUseCase;
 import es.urjc.code.policy.application.port.outgoing.LoadPolicyPort;
 import es.urjc.code.policy.domain.Cover;
 import es.urjc.code.policy.domain.Policy;
@@ -16,7 +16,7 @@ import es.urjc.code.policy.service.api.v1.queries.getpolicydetails.GetPolicyDeta
 import es.urjc.code.policy.service.api.v1.queries.getpolicydetails.dto.PolicyDetailsDto;
 
 @Component
-public class GetPolicyDetailsQueryHandler implements QueryHandler<GetPolicyDetailsQueryResult, GetPolicyDetailsQuery> {
+public class GetPolicyDetailsQueryHandler implements GetPolicyDetailsUseCase {
 
 	private final LoadPolicyPort loadPolicyPort;
 

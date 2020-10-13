@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import es.codeurjc.policy.command.bus.CommandHandler;
+import es.urjc.code.policy.application.port.incoming.TerminatePolicyUseCase;
 import es.urjc.code.policy.application.port.outgoing.PolicyEventProducerPort;
 import es.urjc.code.policy.application.port.outgoing.UpdatePolicyPort;
 import es.urjc.code.policy.domain.Policy;
@@ -13,7 +13,7 @@ import es.urjc.code.policy.service.api.v1.commands.terminatepolicy.TerminatePoli
 
 @Component
 @Transactional
-public class TerminatePolicyHandler implements CommandHandler<TerminatePolicyResult,TerminatePolicyCommand> {
+public class TerminatePolicyHandler implements TerminatePolicyUseCase {
 
 	private final UpdatePolicyPort updatePolicyPort;
 	private final PolicyEventProducerPort policyEventProducerPort;
