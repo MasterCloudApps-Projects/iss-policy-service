@@ -17,12 +17,12 @@ import es.urjc.code.policy.service.api.v1.events.dto.PolicyDto;
 
 @Service
 @Transactional
-public class PolicyProducerAdapter implements PolicyEventProducerPort {
+public class PolicyEventProducerAdapter implements PolicyEventProducerPort {
 
 	private final PoliciesStreams policiesStreams;
 	
 	@Autowired
-	public PolicyProducerAdapter(PoliciesStreams policiesStreams){
+	public PolicyEventProducerAdapter(PoliciesStreams policiesStreams){
 		this.policiesStreams = policiesStreams;
 	}
 	

@@ -13,15 +13,15 @@ import org.springframework.messaging.MessageChannel;
 import es.urjc.code.policy.PolicyBuilder;
 import es.urjc.code.policy.domain.Policy;
 
-class PolicyProducerAdapterTest {
+class PolicyEventProducerAdapterTest {
 
 	private PoliciesStreams policiesStreams; 
-	private PolicyProducerAdapter sut;
+	private PolicyEventProducerAdapter sut;
 	
 	@BeforeEach
 	public void setUp() {
 		this.policiesStreams = Mockito.mock(PoliciesStreams.class);
-		this.sut = new PolicyProducerAdapter(policiesStreams);
+		this.sut = new PolicyEventProducerAdapter(policiesStreams);
 	}
 	
 	@Test
