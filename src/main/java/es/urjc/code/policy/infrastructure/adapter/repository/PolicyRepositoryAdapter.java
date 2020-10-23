@@ -43,7 +43,7 @@ public class PolicyRepositoryAdapter implements UpdatePolicyPort, LoadPolicyPort
 
 	@Override
 	public Policy updateTerminateState(String policyNumber) {
-		PolicyEntity policyEntity = policyJpaRepository.findByNumber(policyNumber).orElseThrow(EntityNotFoundException::new);
+		PolicyEntity policyEntity = policyJpaRepository.findByNumber(policyNumber).orElseThrow(()-> new EntityNotFoundException("Policy not found. Looking for policy with number: " + policyNumber));
 		Policy policy = policyEntityToPolicyConverter.convert(policyEntity);
 		policy.terminate(LocalDate.now());
 		PolicyVersionEntity policyVersionEntity = policyVersionToPolicyVersionEntityConverter.convert(policy.versions().lastVersion());
@@ -63,7 +63,7 @@ public class PolicyRepositoryAdapter implements UpdatePolicyPort, LoadPolicyPort
 
 	@Override
 	public Policy getPolicy(String policyNumber) {
-		PolicyEntity policyEntity = policyJpaRepository.findByNumber(policyNumber).orElseThrow(EntityNotFoundException::new);
+		PolicyEntity policyEntity = policyJpaRepository.findByNumber(policyNumber).orElseThrow(()-> new EntityNotFoundException("Policy not found. Looking for policy with number: " + policyNumber));
 		return policyEntityToPolicyConverter.convert(policyEntity);
 	}
 	
