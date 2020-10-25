@@ -1,5 +1,7 @@
 package es.urjc.code.policy.infrastructure.adapter.controller;
 
+import javax.validation.constraints.NotEmpty;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,7 @@ public class PoliciesQueryController {
 
 			@ApiResponse(responseCode = "404", description = "Policy not found") })
     @GetMapping("/api/v1/policies/{policyNumber}")
-    public ResponseEntity<GetPolicyDetailsQueryResult> get(@Parameter(description = "policy number of the policy to be obtained. Cannot be empty.", required = true) @PathVariable("policyNumber") String policyNumber) {
+    public ResponseEntity<GetPolicyDetailsQueryResult> get(@Parameter(description = "policy number of the policy to be obtained. Cannot be empty.", required = true) @PathVariable("policyNumber") @NotEmpty  String policyNumber) {
     	return ResponseEntity.status(HttpStatus.OK).body(bus.executeQuery(new GetPolicyDetailsQuery.Builder().withNumber(policyNumber).build()));
     }
 }

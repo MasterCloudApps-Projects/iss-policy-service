@@ -42,7 +42,7 @@ public class PolicyVersionToPolicyVersionEntityConverter implements Converter<Po
 				                      .withTotalPremiumAmount(source.getTotalPremiumAmount())
 				                      .withVersionNumber(source.getVersionNumber())
 				                      .withVersionValidityPeriod(versionValidityPeriod)
-				                      .withCovers(source.getCovers().stream().map(c -> toCoverEntity(c)).collect(Collectors.toSet()))
+				                      .withCovers(source.getCovers().stream().map(this::toCoverEntity).collect(Collectors.toSet()))
 				                      .build();
 	}
 	

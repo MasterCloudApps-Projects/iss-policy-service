@@ -29,7 +29,7 @@ public class PolicyEntityToPolicyConverter implements Converter<PolicyEntity, Po
 				         .withId(source.getId())
 				         .withNumber(source.getNumber())
 				         .withAgent(agenRef)
-				         .withVersions(source.getVersions().stream().map(v-> toPolicyVersion(v)).collect(Collectors.toSet()))
+				         .withVersions(source.getVersions().stream().map(this::toPolicyVersion).collect(Collectors.toSet()))
 				         .build();
 	}
 
