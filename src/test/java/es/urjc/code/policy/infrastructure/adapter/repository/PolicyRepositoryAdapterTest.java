@@ -21,7 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import es.urjc.code.policy.PolicyBuilder;
 import es.urjc.code.policy.domain.AgentRef;
 import es.urjc.code.policy.domain.Offer;
 import es.urjc.code.policy.domain.OfferStatus;

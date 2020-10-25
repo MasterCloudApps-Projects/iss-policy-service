@@ -15,7 +15,7 @@ import io.restassured.RestAssured;
 
 @Testcontainers
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public abstract class AbstractControllerIT {
+public abstract class AbstractControllerE2ETestCase {
 	
 	@Container
 	public static PostgreSQLContainer postgresContainer = new PostgreSQLContainer("postgres:9.6.15").withDatabaseName("pricing")
