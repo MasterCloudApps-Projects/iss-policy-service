@@ -46,11 +46,11 @@ class OfferJpaRepositoryIT extends AbstractContainerBaseTest {
 	              .withStatus(OfferStatusEnum.NEW)
 	              .withTotalPrice(new BigDecimal(10000))
 	              .build();
+		offerJpaRepository.save(entity);
 	}
 	
 	@Test
 	void testWhenGetByNumberThenReturnOfferEntity() {
-		offerJpaRepository.save(entity);
 		final var o = offerJpaRepository.getByNumber(OFFER_NUMBER);
 		assertEquals(CODE_CAR,o.getProductCode());
 	}

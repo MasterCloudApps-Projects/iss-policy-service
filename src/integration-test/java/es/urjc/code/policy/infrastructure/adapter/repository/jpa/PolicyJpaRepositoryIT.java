@@ -35,11 +35,11 @@ class PolicyJpaRepositoryIT extends AbstractContainerBaseTest {
 	               .withAgent(agent)
 	               .withNumber(POLICY_NUMBER)
 	               .build();
+		policyJpaRepository.save(entity);
 	}
 	
 	@Test
 	void testWhenFindByPolicyNumberThenReturnPolicyEntity() {	
-		policyJpaRepository.save(entity);
 		final var p = policyJpaRepository.findByNumber(POLICY_NUMBER);
 		assertTrue(p.isPresent());
 	}
