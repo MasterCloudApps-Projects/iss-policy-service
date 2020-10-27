@@ -30,11 +30,9 @@ class OfferJpaRepositoryIT extends AbstractContainerBaseTest {
 	@Autowired
 	private OfferJpaRepository offerJpaRepository;
 	
-	private OfferEntity entity;
-	
 	@BeforeEach
 	public void setUp() {
-		this.entity = new OfferEntity.Builder()
+		OfferEntity entity = new OfferEntity.Builder()
 	              .withAnswers(Collections.singletonMap("NUM_OF_CLAIM", "1"))
 	              .withCreationDate(LocalDate.now())
 	              .withId(UUID.randomUUID())
