@@ -4,6 +4,6 @@ import es.urjc.code.policy.domain.Policy;
 
 public interface PolicyEventProducerPort {
 
-	public boolean terminated(Policy policy);
-	public boolean registered(Policy policy);
+	public void terminated(Policy policy);
+	public void registered(Policy policy);
 }

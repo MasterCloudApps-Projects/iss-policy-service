@@ -15,23 +15,16 @@ spring:
       kafka:
         binder:
           brokers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
-          auto-add-partitions: true
+          auto-add-partitions: true # (*) all services create topic and add partitions
       bindings:
-        policy-registered-out:
-          destination: policy-registered
+        output:
+          destination: POLICY_TOPIC
+          content-type: application/json # it's redundant here, 'application/json' is the default
           producer:
-            partitionKeyExpression: payload.policyTerminatedEvent.policy.number
-            partitionCount: 2          
-          contentType: application/json    
-          group: policy    
-        policy-terminated-out:
-          destination: policy-terminated
-          producer:
-            partitionKeyExpression: payload.policyRegisteredEvent.policy.number
-            partitionCount: 2          
-          contentType: application/json
-          group: policy    
+            partition-key-expression: headers['partitionKey']
+            partition-count: 3 # (*) 
 
+      
 pricing-service:
   url: http://localhost:8080
 
