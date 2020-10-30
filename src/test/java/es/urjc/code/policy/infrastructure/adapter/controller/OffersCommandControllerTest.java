@@ -7,6 +7,7 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import es.codeurjc.policy.command.bus.Bus;
@@ -34,6 +35,7 @@ class OffersCommandControllerTest {
 		ResponseEntity<CreateOfferResult> response = this.sut.create(cmd);
 		// then
 		verify(bus).executeCommand(cmd);
+		assertEquals(HttpStatus.CREATED,response.getStatusCode());
 		assertEquals(response.getBody(), result);
 	}
 	

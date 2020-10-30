@@ -9,7 +9,9 @@ import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.KafkaContainer;
 import org.testcontainers.containers.Network;
 import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
+@Testcontainers
 public abstract class AbstractContainerIntegrationTest {
 	
 	protected static final PostgreSQLContainer<?> postgresContainer = new PostgreSQLContainer("postgres:9.6.15").withDatabaseName("policy")
