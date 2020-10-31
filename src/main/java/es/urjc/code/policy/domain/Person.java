@@ -1,8 +1,11 @@
 package es.urjc.code.policy.domain;
 
+import javax.persistence.Embeddable;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
+@Embeddable
 public class Person {
 	
     private String firstName;

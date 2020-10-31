@@ -8,11 +8,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyEntity;
+import es.urjc.code.policy.domain.Policy;
 
 @Repository
-public interface PolicyJpaRepository extends JpaRepository<PolicyEntity, UUID>{
+public interface PolicyJpaRepository extends JpaRepository<Policy, UUID>{
 
-	@Query("SELECT p FROM PolicyEntity p LEFT JOIN FETCH p.versions where p.number=:number")
-	Optional<PolicyEntity> findByNumber(@Param("number") String number);
+	@Query("SELECT p FROM Policy p LEFT JOIN FETCH p.versions v LEFT JOIN FETCH v.covers where p.number=:number")
+	Optional<Policy> findByNumber(@Param("number") String number);
 }

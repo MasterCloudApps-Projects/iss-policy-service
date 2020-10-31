@@ -3,26 +3,32 @@ package es.urjc.code.policy.domain;
 import java.math.BigDecimal;
 import java.util.UUID;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
+@Entity
+@Table(name = "cover", schema = "policy")
 public class Cover {
 	
     @Id
     @GeneratedValue
     private UUID id;
-
+    
+    @JoinColumn(name = "code")
     private String code;
     
+    @JoinColumn(name = "price")
     private BigDecimal price;
 
-    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "policy_version_id")
     private PolicyVersion policyVersion;
     
     public UUID getId() {
@@ -41,6 +47,9 @@ public class Cover {
         return policyVersion;
     }
 
+    public void setPolicyVersion(PolicyVersion policyVersion) {
+		this.policyVersion = policyVersion;
+	}
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,7 +62,6 @@ public class Cover {
                 .append(id, that.id)
                 .append(code, that.code)
                 .append(price, price)
-                .append(policyVersion, policyVersion)
                 .isEquals();
     }
 
@@ -64,7 +72,6 @@ public class Cover {
                 .append(id)
                 .append(code)
                 .append(price)
-                .append(policyVersion)
                 .toHashCode();
     }
     

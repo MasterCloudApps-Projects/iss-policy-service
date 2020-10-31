@@ -16,8 +16,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import es.urjc.code.policy.base.AbstractContainerBaseTest;
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.OfferEntity;
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.OfferStatusEnum;
+import es.urjc.code.policy.domain.Offer;
+import es.urjc.code.policy.domain.OfferStatus;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -32,7 +32,7 @@ class OfferJpaRepositoryIT extends AbstractContainerBaseTest {
 	
 	@BeforeEach
 	public void setUp() {
-		OfferEntity entity = new OfferEntity.Builder()
+		Offer entity = new Offer.Builder()
 	              .withAnswers(Collections.singletonMap("NUM_OF_CLAIM", "1"))
 	              .withCreationDate(LocalDate.now())
 	              .withId(UUID.randomUUID())
@@ -41,14 +41,14 @@ class OfferJpaRepositoryIT extends AbstractContainerBaseTest {
 	              .withPolicyTo(LocalDate.of(2018, 4, 15))
 	              .withCoversPrices(Collections.singletonMap("C1", BigDecimal.TEN))
 	              .withProductCode(CODE_CAR)
-	              .withStatus(OfferStatusEnum.NEW)
+	              .withStatus(OfferStatus.NEW)
 	              .withTotalPrice(new BigDecimal(10000))
 	              .build();
 		offerJpaRepository.save(entity);
 	}
 	
 	@Test
-	void testWhenGetByNumberThenReturnOfferEntity() {
+	void testWhenGetByNumberThenReturnOffer() {
 		final var o = offerJpaRepository.getByNumber(OFFER_NUMBER);
 		assertEquals(CODE_CAR,o.getProductCode());
 	}

@@ -13,12 +13,8 @@ import es.urjc.code.policy.domain.AgentRef;
 import es.urjc.code.policy.domain.Offer;
 import es.urjc.code.policy.domain.Person;
 import es.urjc.code.policy.domain.Policy;
+import es.urjc.code.policy.domain.PolicyVersion;
 import es.urjc.code.policy.exception.EntityNotFoundException;
-import es.urjc.code.policy.infrastructure.adapter.converter.PolicyEntityToPolicyConverter;
-import es.urjc.code.policy.infrastructure.adapter.converter.PolicyToPolicyEntityConverter;
-import es.urjc.code.policy.infrastructure.adapter.converter.PolicyVersionToPolicyVersionEntityConverter;
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyEntity;
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyVersionEntity;
 import es.urjc.code.policy.infrastructure.adapter.repository.jpa.PolicyJpaRepository;
 
 @Service
@@ -26,29 +22,19 @@ import es.urjc.code.policy.infrastructure.adapter.repository.jpa.PolicyJpaReposi
 public class PolicyRepositoryAdapter implements UpdatePolicyPort, LoadPolicyPort {
 	
 	private final PolicyJpaRepository policyJpaRepository;
-	private final PolicyEntityToPolicyConverter policyEntityToPolicyConverter;
-	private final PolicyVersionToPolicyVersionEntityConverter policyVersionToPolicyVersionEntityConverter;
-	private final PolicyToPolicyEntityConverter policyToPolicyEntityConverter;
 	
 	@Autowired
-	public PolicyRepositoryAdapter(PolicyJpaRepository policyJpaRepository,
-			                       PolicyEntityToPolicyConverter policyEntityToPolicyConverter,
-			                       PolicyVersionToPolicyVersionEntityConverter policyVersionToPolicyVersionEntityConverter,
-			                       PolicyToPolicyEntityConverter policyToPolicyEntityConverter) {
+	public PolicyRepositoryAdapter(PolicyJpaRepository policyJpaRepository) {
 		this.policyJpaRepository = policyJpaRepository;
-		this.policyEntityToPolicyConverter = policyEntityToPolicyConverter;
-		this.policyVersionToPolicyVersionEntityConverter = policyVersionToPolicyVersionEntityConverter;
-		this.policyToPolicyEntityConverter = policyToPolicyEntityConverter;
 	}
 
 	@Override
 	public Policy updateTerminateState(String policyNumber) {
-		PolicyEntity policyEntity = policyJpaRepository.findByNumber(policyNumber).orElseThrow(()-> new EntityNotFoundException("Policy not found. Looking for policy with number: " + policyNumber));
-		Policy policy = policyEntityToPolicyConverter.convert(policyEntity);
+		Policy policy = policyJpaRepository.findByNumber(policyNumber).orElseThrow(()-> new EntityNotFoundException("Policy not found. Looking for policy with number: " + policyNumber));
 		policy.terminate(LocalDate.now());
-		PolicyVersionEntity policyVersionEntity = policyVersionToPolicyVersionEntityConverter.convert(policy.versions().lastVersion());
-		policyEntity.addPolicyVersion(policyVersionEntity);
-		policyJpaRepository.save(policyEntity);
+		PolicyVersion policyVersion = policy.versions().lastVersion();
+		policy.addPolicyVersion(policyVersion);
+		policyJpaRepository.save(policy);
 		return policy;
 	}
 
@@ -56,15 +42,13 @@ public class PolicyRepositoryAdapter implements UpdatePolicyPort, LoadPolicyPort
 	public Policy createPolicy(Offer offer, Person policyHolder, AgentRef agent) {
 		Policy policy = new Policy.Builder().withNumber(UUID.randomUUID().toString()).withAgent(agent).build();
         policy.addVersion(offer, policyHolder);
-        final PolicyEntity policyEntity = policyToPolicyEntityConverter.convert(policy);
-        policyJpaRepository.save(policyEntity);
+        policyJpaRepository.save(policy);
 		return policy;
 	}
 
 	@Override
 	public Policy getPolicy(String policyNumber) {
-		PolicyEntity policyEntity = policyJpaRepository.findByNumber(policyNumber).orElseThrow(()-> new EntityNotFoundException("Policy not found. Looking for policy with number: " + policyNumber));
-		return policyEntityToPolicyConverter.convert(policyEntity);
+		return policyJpaRepository.findByNumber(policyNumber).orElseThrow(()-> new EntityNotFoundException("Policy not found. Looking for policy with number: " + policyNumber));
 	}
 	
 }

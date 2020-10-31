@@ -11,8 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 
 import es.urjc.code.policy.base.AbstractContainerBaseTest;
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.AgentRefEmbeddable;
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyEntity;
+import es.urjc.code.policy.domain.AgentRef;
+import es.urjc.code.policy.domain.Policy;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
@@ -26,12 +26,12 @@ class PolicyJpaRepositoryIT extends AbstractContainerBaseTest {
 	@Autowired
 	private PolicyJpaRepository policyJpaRepository;
 
-	private PolicyEntity entity;
+	private Policy entity;
 	
 	@BeforeEach
 	public void setUp() {
-		AgentRefEmbeddable agent = new AgentRefEmbeddable.Builder().withLogin(ADMIN_AGENT).build();
-		this.entity = new PolicyEntity.Builder()
+		AgentRef agent = new AgentRef.Builder().withLogin(ADMIN_AGENT).build();
+		this.entity = new Policy.Builder()
 	               .withAgent(agent)
 	               .withNumber(POLICY_NUMBER)
 	               .build();
@@ -39,13 +39,13 @@ class PolicyJpaRepositoryIT extends AbstractContainerBaseTest {
 	}
 	
 	@Test
-	void testWhenFindByPolicyNumberThenReturnPolicyEntity() {	
+	void testWhenFindByPolicyNumberThenReturnPolicy() {	
 		final var p = policyJpaRepository.findByNumber(POLICY_NUMBER);
 		assertTrue(p.isPresent());
 	}
 
 	@Test
-	void testWhenFindByPolicyNumberThenNotReturnPolicyEntity() {
+	void testWhenFindByPolicyNumberThenNotReturnPolicy() {
 		final var p = policyJpaRepository.findByNumber(POLICY_NUMER_NOT_EXIST);
 		assertTrue(!p.isPresent());
 	}

@@ -5,7 +5,6 @@ import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 import java.math.BigDecimal;
@@ -29,11 +28,6 @@ import es.urjc.code.policy.domain.Policy;
 import es.urjc.code.policy.domain.PolicyVersion;
 import es.urjc.code.policy.domain.vo.DateRange;
 import es.urjc.code.policy.exception.EntityNotFoundException;
-import es.urjc.code.policy.infrastructure.adapter.converter.PolicyEntityToPolicyConverter;
-import es.urjc.code.policy.infrastructure.adapter.converter.PolicyToPolicyEntityConverter;
-import es.urjc.code.policy.infrastructure.adapter.converter.PolicyVersionToPolicyVersionEntityConverter;
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyEntity;
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.PolicyVersionEntity;
 import es.urjc.code.policy.infrastructure.adapter.repository.jpa.PolicyJpaRepository;
 
 class PolicyRepositoryAdapterTest {
@@ -43,18 +37,12 @@ class PolicyRepositoryAdapterTest {
 	private static final String OFFER_NUMBER = "111";
 	
 	private PolicyJpaRepository policyJpaRepository;
-	private PolicyEntityToPolicyConverter policyEntityToPolicyConverter;
-	private PolicyVersionToPolicyVersionEntityConverter policyVersionToPolicyVersionEntityConverter;
-	private PolicyToPolicyEntityConverter policyToPolicyEntityConverter;
 	private PolicyRepositoryAdapter sut;
 	
 	@BeforeEach
 	public void setUp() {
 		this.policyJpaRepository = Mockito.mock(PolicyJpaRepository.class);
-		this.policyEntityToPolicyConverter = Mockito.mock(PolicyEntityToPolicyConverter.class);
-		this.policyVersionToPolicyVersionEntityConverter = Mockito.mock(PolicyVersionToPolicyVersionEntityConverter.class);
-		this.policyToPolicyEntityConverter = Mockito.mock(PolicyToPolicyEntityConverter.class);
-		this.sut = new PolicyRepositoryAdapter(policyJpaRepository, policyEntityToPolicyConverter, policyVersionToPolicyVersionEntityConverter, policyToPolicyEntityConverter);
+		this.sut = new PolicyRepositoryAdapter(policyJpaRepository);
 	}
 	
 	
@@ -63,30 +51,23 @@ class PolicyRepositoryAdapterTest {
 		// given
 		when(policyJpaRepository.findByNumber(POLICY_NUMBER)).thenReturn(Optional.empty());
 		// when
-		// when
 		assertThrows(EntityNotFoundException.class, () -> {
 			this.sut.updateTerminateState(POLICY_NUMBER);
 		});
 		// then
 		verify(policyJpaRepository).findByNumber(POLICY_NUMBER);
-		verifyNoInteractions(policyEntityToPolicyConverter);
-		verifyNoInteractions(policyVersionToPolicyVersionEntityConverter);
-		verifyNoInteractions(policyToPolicyEntityConverter);
 	}
 	
 	@Test
 	void shouldBeUpdateTerminateState() {
 		// given
-		when(policyJpaRepository.findByNumber(POLICY_NUMBER)).thenReturn(Optional.of(getPolicyEntity()));
-		when(policyEntityToPolicyConverter.convert(any())).thenReturn(getPolicy());
-		when(policyVersionToPolicyVersionEntityConverter.convert(any())).thenReturn(getPolicyVersionEntity());
-		PolicyEntity entity = getPolicyEntity(); 
-		when(policyJpaRepository.save(entity)).thenReturn(entity);
+		Policy policy = getPolicy();
+		when(policyJpaRepository.findByNumber(POLICY_NUMBER)).thenReturn(Optional.of(policy)); 
+		when(policyJpaRepository.save(policy)).thenReturn(policy);
 		// when
 		Policy response = this.sut.updateTerminateState(POLICY_NUMBER);
 		// then
 		verify(policyJpaRepository).findByNumber(POLICY_NUMBER);
-		verify(policyEntityToPolicyConverter).convert(any());
 		verify(policyJpaRepository).save(any());
 		assertEquals(POLICY_NUMBER, response.getNumber());
 	}
@@ -98,13 +79,11 @@ class PolicyRepositoryAdapterTest {
 		final Offer offer = getOffer();
 		final Person policyHolder = getPerson();
 		final AgentRef agent = getAgentRef();
-		PolicyEntity entity = getPolicyEntity(); 
-		when(policyToPolicyEntityConverter.convert(any())).thenReturn(entity);
-		when(policyJpaRepository.save(entity)).thenReturn(entity);
+		Policy policy = getPolicy(); 
+		when(policyJpaRepository.save(policy)).thenReturn(policy);
 		// when
 		this.sut.createPolicy(offer, policyHolder, agent);
 		// then
-		verify(policyToPolicyEntityConverter).convert(any());
 		verify(policyJpaRepository).save(any());
 	}
 	
@@ -118,25 +97,19 @@ class PolicyRepositoryAdapterTest {
 		});
 		// then
 		verify(policyJpaRepository).findByNumber(POLICY_NUMBER);
-		verifyNoInteractions(policyEntityToPolicyConverter);
 	}
 	
 	@Test
 	void shouldBeGetPolicy() {
 		// given
-		when(policyJpaRepository.findByNumber(POLICY_NUMBER)).thenReturn(Optional.of(getPolicyEntity()));
-		when(policyEntityToPolicyConverter.convert(any())).thenReturn(getPolicy());
+		when(policyJpaRepository.findByNumber(POLICY_NUMBER)).thenReturn(Optional.of(getPolicy()));
 		// when
 		final Policy response = this.sut.getPolicy(POLICY_NUMBER);
 		// then
 		verify(policyJpaRepository).findByNumber(POLICY_NUMBER);
-		verify(policyEntityToPolicyConverter).convert(any());
 		assertNotNull(response);
 	}
 
-	private PolicyEntity getPolicyEntity() {
-		return new PolicyEntity.Builder().build();
-	}
 
 	private Policy getPolicy() {
 		Set<PolicyVersion> versions = new HashSet<>(Arrays.asList(
@@ -166,10 +139,6 @@ class PolicyRepositoryAdapterTest {
 				         .withAgent(new AgentRef.Builder().withLogin("admin").build())
 				         .withVersions(versions)
 				         .build();
-	}
-	
-	private PolicyVersionEntity getPolicyVersionEntity() {
-		return new PolicyVersionEntity.Builder().build();
 	}
 
 	private AgentRef getAgentRef() {

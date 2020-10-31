@@ -5,20 +5,36 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
 import es.urjc.code.policy.domain.vo.DateRange;
 import es.urjc.code.policy.exception.BusinessException;
 
+@Entity
+@Table(name = "policy", schema = "policy")
 public class Policy {
 
+    @Id
+    @GeneratedValue
 	private UUID id;
 
+    @Column(name = "number")
     private String number;
 
+    @Embedded
     private AgentRef agent;
 
+    @OneToMany(mappedBy = "policy", cascade = CascadeType.ALL)
     private Set<PolicyVersion> versions=new HashSet<>();
     
     public UUID getId() {
@@ -49,7 +65,6 @@ public class Policy {
                 .append(id, that.id)
                 .append(number, that.number)
                 .append(agent, agent)
-                .append(versions, versions)
                 .isEquals();
     }
 
@@ -60,8 +75,17 @@ public class Policy {
                 .append(id)
                 .append(number)
                 .append(agent)
-                .append(versions)
                 .toHashCode();
+    }
+    
+    public void addPolicyVersion(PolicyVersion policyVersion){
+    	versions.add(policyVersion);
+    	policyVersion.setPolicy(this);
+    }
+    
+    public void removePolicyVersion(PolicyVersion policyVersion) {
+    	versions.remove(policyVersion);
+    	policyVersion.setPolicy(null);
     }
     
     public PolicyVersionCollection versions() {

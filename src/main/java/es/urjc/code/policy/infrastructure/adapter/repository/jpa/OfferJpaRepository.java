@@ -5,10 +5,10 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import es.urjc.code.policy.infrastructure.adapter.repository.entity.OfferEntity;
+import es.urjc.code.policy.domain.Offer;
 
 @Repository
-public interface OfferJpaRepository extends JpaRepository<OfferEntity, UUID> {
+public interface OfferJpaRepository extends JpaRepository<Offer, UUID> {
 	
-	OfferEntity getByNumber(String number);
+	Offer getByNumber(String number);
 }
