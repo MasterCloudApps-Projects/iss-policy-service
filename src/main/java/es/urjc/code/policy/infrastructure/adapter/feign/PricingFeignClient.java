@@ -9,7 +9,7 @@ import es.urjc.code.policy.config.DefaultDecoderConfiguration;
 import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePriceCommand;
 import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePriceResult;
 
-@FeignClient(name="pricing-service",url = "${pricing-service.url}",configuration=DefaultDecoderConfiguration.class)
+@FeignClient(name="iss-pricing-service",url = "${pricing-service.url}",configuration=DefaultDecoderConfiguration.class)
 public interface PricingFeignClient extends PricingClientPort {
 	
 	@PostMapping("/api/v1/calculate")

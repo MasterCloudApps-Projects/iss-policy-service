@@ -91,6 +91,6 @@ class PricingFeignClientTest {
 	  @Configuration(proxyBeanMethods = false)
 	  @EnableFeignClients(clients = PricingFeignClient.class)
 	  @EnableAutoConfiguration
-	  @RibbonClient(name = "pricing-service", configuration = PricingFeignClientTest.FakeRibbonConfiguration.class)
+	  @RibbonClient(name = "iss-pricing-service", configuration = PricingFeignClientTest.FakeRibbonConfiguration.class)
 	  static class FakeFeignConfiguration {}
 }
