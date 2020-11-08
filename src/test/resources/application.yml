@@ -1,0 +1,6 @@
+spring:
+  jackson.serialization.indent_output: true
+  application:
+    name: iss-policy-service
+pricing-service:
+  url: 

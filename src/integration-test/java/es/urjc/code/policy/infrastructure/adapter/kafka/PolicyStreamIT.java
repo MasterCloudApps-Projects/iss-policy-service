@@ -1,5 +1,7 @@
 package es.urjc.code.policy.infrastructure.adapter.kafka;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertTrue;
 
 import java.math.BigDecimal;
@@ -11,8 +13,6 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cloud.stream.messaging.Source;
@@ -28,8 +28,6 @@ import es.urjc.code.policy.service.api.v1.events.dto.PolicyDto;
 @DirtiesContext
 class PolicyStreamIT extends AbstractContainerIntegrationTest {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(PolicyStreamIT.class);
-	
 	private static final String POLICY_HOLDER = "François Poirier";
 	private static final String PRODUCT_CODE = "CAR";
 	private static final String ADMIN_AGENT = "admin";
@@ -58,7 +56,7 @@ class PolicyStreamIT extends AbstractContainerIntegrationTest {
 		// when
 		this.sut.policyRegistred(policyDto.getId(), policyDto);
 		// then
-		assertTrue(1==messages.size());		
+		assertThat(messages, hasSize(1));
 		List<String> sList = messages.stream().map(p -> p.toString()).collect(Collectors.toList());
 		String jsonString = sList.get(0);
 		assertTrue(jsonString.contains(POLICY_HOLDER));

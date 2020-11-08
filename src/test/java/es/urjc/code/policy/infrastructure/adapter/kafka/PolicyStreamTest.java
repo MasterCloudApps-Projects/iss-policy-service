@@ -15,7 +15,7 @@ import org.springframework.messaging.MessageChannel;
 
 import es.urjc.code.policy.service.api.v1.events.dto.PolicyDto;
 
-public class PolicyStreamTest {
+class PolicyStreamTest {
 
 	private static final String POLICY_HOLDER = "François Poirier";
 	private static final String PRODUCT_CODE = "CAR";

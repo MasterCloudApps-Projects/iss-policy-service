@@ -1,0 +1,36 @@
+spring:
+  jackson.serialization.indent_output: true
+  application:
+    name: iss-policy-service
+  datasource:
+    url: jdbc:postgresql://${POSTGRES_HOST:localhost}:${POSTGRES_PORT:5432}/${POSTGRES_DB:postgres}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres123}
+    hikari:
+      connection-timeout: 2000
+      initialization-fail-timeout: 0
+    jpa.database-platform: org.hibernate.dialect.PostgreSQL9Dialect
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ${KAFKA_HOST:localhost}:${KAFKA_PORT:9092}
+          auto-add-partitions: true # (*) all services create topic and add partitions
+      bindings:
+        output:
+          destination: POLICY_TOPIC
+          content-type: application/json # it's redundant here, 'application/json' is the default
+          producer:
+            partition-key-expression: headers['partitionKey']
+            partition-count: 3 # (*) 
+
+      
+pricing-service:
+  enabled: false
+  url: http://localhost:8080
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
