@@ -25,6 +25,8 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 		<testcontainer.version>1.14.3</testcontainer.version>
 		<code.coverage.exclusions>**/api/**,**/bus/**,**/domain/**,**/dto/**,**/policy/Application.java,**/config/OpenApiConfig.java</code.coverage.exclusions>
+		<git.repository>MasterCloudApps-Projects/iss-policy-service</git.repository>
+		<project.scm.id>github</project.scm.id>
 	</properties>
 
 	<dependencies>
@@ -84,7 +86,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-ribbon</artifactId>
-		</dependency>		
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -158,7 +160,7 @@
 			<groupId>org.springframework.kafka</groupId>
 			<artifactId>spring-kafka-test</artifactId>
 			<scope>test</scope>
-		</dependency>					
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -190,6 +192,16 @@
 						</goals>
 					</execution>
 				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-deploy-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<configuration>
+					<tagNameFormat>v@{project.version}</tagNameFormat>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -307,17 +319,17 @@
 							</execution>
 						</executions>
 					</plugin>
-		            <plugin>
-		                <groupId>org.apache.maven.plugins</groupId>
-		                <artifactId>maven-surefire-plugin</artifactId>
-		                <version>3.0.0-M3</version>
-		                <configuration>
-		                    <skipTests>true</skipTests>
-		                </configuration>
-		            </plugin>					
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<version>3.0.0-M3</version>
+						<configuration>
+							<skipTests>true</skipTests>
+						</configuration>
+					</plugin>
 				</plugins>
 			</build>
-		</profile>	
+		</profile>
 		<profile>
 			<id>sonar</id>
 			<properties>
@@ -351,7 +363,9 @@
 			</build>
 		</profile>
 	</profiles>
-
+	<scm>
+		<developerConnection>scm:git:https://github.com/${git.repository}.git</developerConnection>
+	</scm>
 	<distributionManagement>
 		<repository>
 			<id>github</id>
