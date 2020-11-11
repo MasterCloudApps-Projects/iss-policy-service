@@ -11,7 +11,7 @@ import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePrice
 import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePriceResult;
 
 @FeignClient(name="iss-pricing-service",configuration=DefaultDecoderConfiguration.class)
-@ConditionalOnProperty(name = "pricing-service.enabled", havingValue = "true", matchIfMissing = true)
+@ConditionalOnProperty(name = "pricing-client.enabled", havingValue = "true", matchIfMissing = true)
 public interface PricingFeignClient extends PricingClientPort {
 	
 	@PostMapping("/api/v1/calculate")

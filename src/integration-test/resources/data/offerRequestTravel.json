@@ -1,0 +1,7 @@
+{
+"productCode":"TRI",
+"policyFrom": "2017-04-16",
+"policyTo": "2018-04-15",
+"selectedCovers":["C3"],
+"answers":[{"questionCode":"NUM_OF_ADULTS","answer":2},{"questionCode":"NUM_OF_CHILDREN","answer":2},{"questionCode":"DESTINATION","answer":"WORLD"}]
+}

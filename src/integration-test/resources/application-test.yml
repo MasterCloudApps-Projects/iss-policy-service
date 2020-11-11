@@ -1,3 +1,6 @@
+pricing-client:
+  enabled: false
+
 spring:
   jackson.serialization.indent_output: true
   application:
@@ -27,11 +30,12 @@ spring:
             partition-key-expression: headers['partitionKey']
             partition-count: 3 # (*) 
 
-pricing-service:
-  enabled: true  
 
 management:
+  endpoint:
+    health:
+      show-details: always
   endpoints:
     web:
       exposure:
-        include: "*"
+        include: '*'

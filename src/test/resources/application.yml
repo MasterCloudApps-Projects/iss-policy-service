@@ -1,3 +1,6 @@
+pricing-client:
+  enabled: true
+  
 spring:
   jackson.serialization.indent_output: true
   application:
@@ -6,5 +9,4 @@ spring:
     kubernetes:  
       discovery:
           enabled: false
-pricing-service:
-  enabled: true
+

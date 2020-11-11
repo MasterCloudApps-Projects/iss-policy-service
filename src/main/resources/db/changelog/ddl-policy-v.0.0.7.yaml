@@ -1,0 +1,21 @@
+databaseChangeLog:
+
+- changeSet:
+     id:  01_modify_policy_number_length  
+     author:  fpoirier 
+     changes:  
+     -  modifyDataType:  
+         columnName: number  
+         newDataType: VARCHAR(100)  
+         schemaName: policy  
+         tableName: policy
+
+- changeSet:
+     id:  02_modify_offer_number_length  
+     author:  fpoirier 
+     changes:  
+     -  modifyDataType:  
+         columnName: number  
+         newDataType: VARCHAR(100)  
+         schemaName: policy  
+         tableName: offer
