@@ -2,5 +2,9 @@ spring:
   jackson.serialization.indent_output: true
   application:
     name: iss-policy-service
+  cloud:
+    kubernetes:  
+      discovery:
+          enabled: false
 pricing-service:
-  url: 
+  enabled: true

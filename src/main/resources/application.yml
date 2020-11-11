@@ -11,6 +11,12 @@ spring:
       initialization-fail-timeout: 0
     jpa.database-platform: org.hibernate.dialect.PostgreSQL9Dialect
   cloud:
+    loadbalancer:
+      ribbon:
+        enabled: false
+    kubernetes:
+      discovery:
+        all-namespaces: true
     stream:
       kafka:
         binder:
@@ -24,10 +30,9 @@ spring:
             partition-key-expression: headers['partitionKey']
             partition-count: 3 # (*) 
 
-      
 pricing-service:
-  url: http://localhost:8080
-
+  enabled: true
+  
 management:
   endpoints:
     web:

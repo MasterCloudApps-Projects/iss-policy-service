@@ -19,6 +19,7 @@ import org.springframework.cloud.stream.messaging.Source;
 import org.springframework.cloud.stream.test.binder.MessageCollector;
 import org.springframework.messaging.Message;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 
 import es.urjc.code.policy.Application;
 import es.urjc.code.policy.base.AbstractContainerIntegrationTest;
@@ -26,6 +27,7 @@ import es.urjc.code.policy.service.api.v1.events.dto.PolicyDto;
 
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @DirtiesContext
+@ActiveProfiles("test")
 class PolicyStreamIT extends AbstractContainerIntegrationTest {
 
 	private static final String POLICY_HOLDER = "François Poirier";
@@ -57,7 +59,7 @@ class PolicyStreamIT extends AbstractContainerIntegrationTest {
 		this.sut.policyRegistred(policyDto.getId(), policyDto);
 		// then
 		assertThat(messages, hasSize(1));
-		List<String> sList = messages.stream().map(p -> p.toString()).collect(Collectors.toList());
+		List<String> sList = messages.stream().map(Message::toString).collect(Collectors.toList());
 		String jsonString = sList.get(0);
 		assertTrue(jsonString.contains(POLICY_HOLDER));
 		assertTrue(jsonString.contains(PRODUCT_CODE));

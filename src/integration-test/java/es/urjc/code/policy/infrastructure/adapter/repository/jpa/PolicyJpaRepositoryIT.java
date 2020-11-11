@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 
 import es.urjc.code.policy.base.AbstractContainerBaseTest;
@@ -17,6 +18,7 @@ import es.urjc.code.policy.domain.Policy;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @ContextConfiguration(initializers = { AbstractContainerBaseTest.PropertiesInitializer.class })
+@ActiveProfiles("test")
 class PolicyJpaRepositoryIT extends AbstractContainerBaseTest {
 	
 	private static final String ADMIN_AGENT = "admin";
