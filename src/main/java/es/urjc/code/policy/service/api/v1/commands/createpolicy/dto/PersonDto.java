@@ -1,7 +1,6 @@
 package es.urjc.code.policy.service.api.v1.commands.createpolicy.dto;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

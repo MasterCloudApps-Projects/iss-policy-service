@@ -1,7 +1,7 @@
 {
 "productCode":"HSI",
-"policyFrom": "2017-04-16",
-"policyTo": "2018-04-15",
+"policyFrom": "2020-04-16",
+"policyTo": "2021-04-15",
 "selectedCovers":["C2"],
 "answers":[{"questionCode":"NUM_OF_CLAIM","answer":1},{"questionCode":"TYP","answer":"APT"},{"questionCode":"AREA","answer":120},{"questionCode":"FLOOD","answer":"NO"}]
 }

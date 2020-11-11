@@ -43,7 +43,7 @@ public class GetPolicyDetailsQueryHandler implements GetPolicyDetailsUseCase {
     				.withTotalPremium(policyVersion.getTotalPremiumAmount()).withProductCode(policyVersion.getProductCode())
     				.withAccountNumber(policyVersion.getAccountNumber())
     				.withCovers(
-    						policyVersion.getCovers().stream().map(Cover::toString).sorted().collect(Collectors.toSet()))
+    						policyVersion.getCovers().stream().map(Cover::getCode).sorted().collect(Collectors.toSet()))
     				.build();
         	
         }

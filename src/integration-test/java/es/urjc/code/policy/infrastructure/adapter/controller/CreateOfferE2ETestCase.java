@@ -20,21 +20,21 @@ import io.restassured.response.ValidatableResponse;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-class OffersCommandControllerE2ETestCase extends AbstractControllerE2ETestCase {
+class CreateOfferE2ETestCase extends AbstractControllerE2ETestCase {
 
 	private static final String OFFER_NUMBER = "offerNumber";
 	private static final String COVERS_PRICES_ATTRIBUT = "coversPrices";
 	private static final String TOTAL_PRICE_ATTRIBUT = "totalPrice";
-	private static final String OFFER_CMD_CAR = "data/offerRequestCar.json";
-	private static final String OFFER_CMD_FARM = "data/offerRequestFarm.json";
-	private static final String OFFER_CMD_HOUSE = "data/offerRequestHouse.json";
-	private static final String OFFER_CMD_TRAVEL = "data/offerRequestTravel.json";
+	private static final String CREATE_OFFER_CAR_CMD = "data/createOfferCar.json";
+	private static final String CREATE_OFFER_FAR_CMD = "data/createOfferFarm.json";
+	private static final String CREATE_OFFER_HOUSE_CMD = "data/createOfferHouse.json";
+	private static final String CREATE_OFFER_TRAVEL_CMD = "data/createOfferTravel.json";
 	
 	
 	@Test
 	void shouldCreateOfferCar() {
 		//given
-        JsonObject offerRequestJson = TestDataProvider.getRequestJson(OFFER_CMD_CAR);
+        JsonObject offerRequestJson = TestDataProvider.getRequestJson(CREATE_OFFER_CAR_CMD);
         
         //when
         ValidatableResponse response = given()
@@ -55,7 +55,7 @@ class OffersCommandControllerE2ETestCase extends AbstractControllerE2ETestCase {
 	@Test
 	void shouldCreateOfferHouse() {
 		//given
-        JsonObject offerRequestJson = TestDataProvider.getRequestJson(OFFER_CMD_HOUSE);
+        JsonObject offerRequestJson = TestDataProvider.getRequestJson(CREATE_OFFER_HOUSE_CMD);
         
         //when
         ValidatableResponse response = given()
@@ -76,7 +76,7 @@ class OffersCommandControllerE2ETestCase extends AbstractControllerE2ETestCase {
 	@Test
 	void shouldCreateOfferTravel() {
 		//given
-        JsonObject offerRequestJson = TestDataProvider.getRequestJson(OFFER_CMD_TRAVEL);
+        JsonObject offerRequestJson = TestDataProvider.getRequestJson(CREATE_OFFER_TRAVEL_CMD);
         
         //when
         ValidatableResponse response = given()
@@ -97,7 +97,7 @@ class OffersCommandControllerE2ETestCase extends AbstractControllerE2ETestCase {
 	@Test
 	void shouldCreateOfferFarm() {
 		//given
-        JsonObject offerRequestJson = TestDataProvider.getRequestJson(OFFER_CMD_FARM);
+        JsonObject offerRequestJson = TestDataProvider.getRequestJson(CREATE_OFFER_FAR_CMD);
         
         //when
         ValidatableResponse response = given()

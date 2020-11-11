@@ -23,7 +23,7 @@ public abstract class AbstractControllerE2ETestCase extends AbstractContainerInt
 		V1_CREATE_OFFER_ENDPOINT("/api/v1/offers"), 
 		V1_CREATE_POLICY_ENDPOINT("/api/v1/policies"),
 		V1_TERMINATE_POLICIES_ENDPOINT("/api/v1/policies/terminate"),
-		V1_GET_POLICY_BY_POLICY_NUMBER_ENDPOINT("/api/v1/policies/P1212121");
+		V1_GET_POLICY_BY_POLICY_NUMBER_ENDPOINT("/api/v1/policies/");
 
 		private final String endpoint;
 

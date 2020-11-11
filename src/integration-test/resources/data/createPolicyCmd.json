@@ -1,0 +1,9 @@
+{
+  "offerNumber": "replaceOfferNumber",
+  "agentLogin": "admin",
+  "policyHolder": {
+    "firstName": "François",
+    "lastName": "Poirier",
+    "taxId": "1111111111"
+  }
+}
