@@ -13,7 +13,7 @@ import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePrice
 import es.urjc.code.policy.service.api.v1.commands.calculateprice.CalculatePriceResult;
 
 @Component
-@ConditionalOnMissingBean(PricingFeignClient.class)
+@ConditionalOnMissingBean(PricinngClientAdapter.class)
 public class MockPricingClient implements PricingClientPort {
 
 	private static final BigDecimal TOTAL_PRICE_CAR = new BigDecimal(100);

@@ -1,4 +1,4 @@
-package es.urjc.code.policy.infrastructure.adapter.feign;
+package es.urjc.code.policy.infrastructure.adapter.feign.client;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
