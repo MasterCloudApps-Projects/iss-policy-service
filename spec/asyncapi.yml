@@ -1,0 +1,113 @@
+asyncapi: 2.0.0
+info:
+  title: Policy events API definition
+  version: 1.0.0
+  description: This document contains the definition and data structures of the events published by the Policy Service. The policy Service service is responsible to created offers, converted offers to insurance policies, and allowed for termination of policies as fact events to the published topic. The Policy Service publisher will generate policy event.
+servers:
+  default:
+    url: 'localhost:9092'
+    description: Allows you to connect in a local environment with kafka
+    protocol: kafka
+channels:
+  policy-topic:
+    publish:
+      message:
+        $ref: '#/components/messages/policyEvent'
+components:
+  messages:
+    policyEvent:
+      summary: Fact to propagate the policy event.
+      name: policy
+      payload:
+        type: object
+        properties:
+          payload:
+            $ref: '#/components/schemas/policyEventPayload'
+  schemas:
+    id:
+      title: id
+      description: Resource identifier
+      type: string
+      format: uuid
+      pattern: '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
+    policyDto:  
+      type: object
+      description: the policy
+      required:
+        - id
+        - number
+        - from
+        - to
+        - policyHolder
+        - productCode
+        - totalPremium
+        - agentLogin
+      properties:
+        id:
+          description: policy id
+          $ref: '#/components/schemas/id'
+          example: d7d2d1d3-c8ff-421a-b8f7-d0cc2c972bfb
+        number:
+          type: string
+          format: string
+          description: policy number
+          example: 'd7d2d1d3-c8ff-421a-b8f7-d0cc2c972bfb'
+        from:
+          type: string
+          format: date
+          description: policy date from
+          example: '2019-05-22'
+        to:
+          type: string
+          format: date
+          description: policy date to
+          example: '2020-05-22'
+        policyHolder:
+          type: string
+          format: string
+          description: policy holder
+          example: 'François Poirier'
+        productCode:
+          type: string
+          format: string
+          description: policy holder
+          example: 'CAR'
+        totalPremium:
+          type: number
+          description: total premium policy
+          example: 150
+        agentLogin:
+          type: string
+          format: string
+          description: agent policy
+          example: 'admin'
+    policyEventPayload:
+      type: object
+      description: payload of the policy event
+      required:
+        - eventId
+        - eventTimestamp
+        - eventType
+        - policyId
+        - policy
+      properties:
+        eventId:
+          description: event id
+          $ref: '#/components/schemas/id'
+          example: d7d2d1d3-c8ff-421a-b8f7-d0cc2c972bfb
+        eventTimestamp:
+          description: event timestamp in millisecond
+          type: number
+        eventType:
+          type: string
+          format: string
+          description: event type REGISTERED or TERMINATED
+          example: 'REGISTERED'
+        policyId:
+          description: policy id
+          $ref: '#/components/schemas/id'
+          example: d7d2d1d3-c8ff-421a-b8f7-d0cc2c972bfb
+        policy:
+          type: object
+          description: an object representing the policy
+          $ref: '#/components/schemas/policyDto'

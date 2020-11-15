@@ -27,7 +27,7 @@ spring:
           auto-add-partitions: true # (*) all services create topic and add partitions
       bindings:
         output:
-          destination: POLICY_TOPIC
+          destination: policy-topic
           content-type: application/json # it's redundant here, 'application/json' is the default
           producer:
             partition-key-expression: headers['partitionKey']
