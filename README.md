@@ -1,6 +1,6 @@
 # iss-policy-service
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=iss-policy-service&metric=alert_status)](https://sonarcloud.io/dashboard?id=iss-policy-service)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=iss-policy-service&metric=coverage)](https://sonarcloud.io/dashboard?id=iss-policy-service)[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=iss-policy-service&metric=alert_status)](https://sonarcloud.io/dashboard?id=iss-policy-service)
 
 We decided to implement it in an extremely simplified version of an insurance sales system to test the following aspects of microservice development:
 
