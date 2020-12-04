@@ -49,6 +49,6 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2  
       - name: SonarCloud Scan
-        run: mvn -B clean verify -Psonar,integration-test -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+        run: mvn -B clean verify -Psonar -Dsonar.login=${{ secrets.SONAR_TOKEN }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
