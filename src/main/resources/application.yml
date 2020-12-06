@@ -1,6 +1,10 @@
 pricing-client:
   enabled: true
   
+springdoc:
+  api-docs:
+    path: /policy-openapi
+
 spring:
   jackson.serialization.indent_output: true
   application:
