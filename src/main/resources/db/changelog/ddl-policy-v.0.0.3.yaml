@@ -24,6 +24,8 @@ databaseChangeLog:
             name: policy_version_id
             type: UUID
             constraints:
+                foreignKeyName: fk_cover_policy_version
+                references: policy.policy_version(id)
                 nullable: false
         - column:
                 name: code

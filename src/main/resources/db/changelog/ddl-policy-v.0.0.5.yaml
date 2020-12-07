@@ -18,6 +18,8 @@ databaseChangeLog:
             type: UUID
             constraints:
                 primaryKeyName: offer_answers_pkey
+                foreignKeyName: fk_offer_answers_offer_id
+                references: policy.offer(id)
                 primaryKey: true
                 nullable: false     
         - column:

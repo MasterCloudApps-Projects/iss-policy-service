@@ -24,6 +24,8 @@ databaseChangeLog:
             name: policy_id
             type: UUID
             constraints:
+                foreignKeyName: fk_policy_version_policy
+                references: policy.policy(id)
                 nullable: false
         - column:
                 name: account_number
