@@ -35,7 +35,7 @@ spring:
           content-type: application/json # it's redundant here, 'application/json' is the default
           producer:
             partition-key-expression: headers['partitionKey']
-            partition-count: 3 # (*) 
+            partition-count: 5 # (*) 
 
   
 management:
