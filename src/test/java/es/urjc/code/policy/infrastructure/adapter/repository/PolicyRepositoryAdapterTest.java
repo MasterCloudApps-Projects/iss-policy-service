@@ -119,8 +119,8 @@ class PolicyRepositoryAdapterTest {
                         .withProductCode("Pakiet Gold")
                         .withPolicyHolder(new Person.Builder().withFirstName("François").withLastName("Poirier").withPesel("111111116").build())
                         .withAccountNumber("2738123834783247723")
-                        .withCoverPeriod(DateRange.between(LocalDate.of(2020, 1, 1), LocalDate.of(2020, 12, 31)))
-                        .withVersionValidityPeriod(DateRange.between(LocalDate.of(2020, 1, 1), LocalDate.of(2020, 12, 31)))
+                        .withCoverPeriod(DateRange.between(LocalDate.now().minusMonths(6), LocalDate.now().plusMonths(6)))
+                        .withVersionValidityPeriod(DateRange.between(LocalDate.now().minusMonths(6), LocalDate.now().plusMonths(6)))
                         .withTotalPremiumAmount(new BigDecimal("199")).build(),
                 new PolicyVersion.Builder()
                         .withId(UUID.randomUUID())
@@ -128,8 +128,8 @@ class PolicyRepositoryAdapterTest {
                         .withProductCode("Pakiet Gold")
                         .withPolicyHolder(new Person.Builder().withFirstName("François").withLastName("Poirier").withPesel("111111116").build())
                         .withAccountNumber("2738123834783247723")
-                        .withCoverPeriod(DateRange.between(LocalDate.of(2020, 1, 1), LocalDate.of(2020, 12, 31)))
-                        .withVersionValidityPeriod(DateRange.between(LocalDate.of(2020, 1, 1), LocalDate.of(2020, 12, 31)))
+                        .withCoverPeriod(DateRange.between(LocalDate.now().minusMonths(6), LocalDate.now().plusMonths(6)))
+                        .withVersionValidityPeriod(DateRange.between(LocalDate.now().minusMonths(6), LocalDate.now().plusMonths(6)))
                         .withTotalPremiumAmount(new BigDecimal("199")).build()
                 )
         );
